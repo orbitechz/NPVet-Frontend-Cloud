@@ -26,11 +26,9 @@ jobs:
         with:
           node-version: 18
       
-          
       - name: Instalar dependências do frontend
         run: npm install
-      
-          
+         
       - name: Build depedencias do angular
         run: npm run build
       
