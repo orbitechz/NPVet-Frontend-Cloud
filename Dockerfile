@@ -1,26 +1,28 @@
 #Use the official Node image as a base image for building
-FROM node:18-alpine AS builder
+# FROM node:18-alpine AS builder
 
 #Set the working directory in the container
-WORKDIR /app
+# WORKDIR /app
 
 #Copy package.json and package-lock.json to the container
-COPY package*.json ./
+# COPY package*.json ./
 
 #Install dependencies
-RUN npm install
+# RUN npm install
 
 #Copy the rest of the application code
-COPY . .
+# COPY . .
 
 #Build the Angular app
-RUN npm run build
+# RUN npm run build
 
 #Use the official Nginx image as a base image for serving
 FROM nginx:alpine
 
 #Copy the built Angular app from the builder stage to the Nginx container
-# COPY --from=builder /app/dist /usr/share/nginx/html
+WORKDIR /usr/share/nginx/html
+
+COPY dist/npvet-frontend/ .
 
 # Copiar a configuração personalizada do NGINX
 COPY nginx.conf /etc/nginx/conf.d/default.conf
