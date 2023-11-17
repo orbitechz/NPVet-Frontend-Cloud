@@ -28,28 +28,18 @@ jobs:
       
       - name: Instalar dependências do frontend
         run: npm install
-         
       - name: Build depedencias do angular
         run: npm run build
-      
-  build_docker_images:
-    
-        runs-on: ubuntu-latest
-          
-        needs: frontend
-      
-        steps:
-          
-        - name: Checkout código
-          uses: actions/checkout@v2
-        - name: Configure AWS credentials for kubectl
-          run: aws configure set aws_access_key_id $AWS_AKI && aws configure set aws_secret_access_key $AWS_SAK && aws configure set aws_session_token $AWS_ST && aws configure set region $AWS_R
-        
-        - name: Configure AWS credentials for kubectl
-          run: aws ecr get-login-password --region $AWS_R | docker login --username AWS --password-stdin $AWS_U_ECR
-        
-        - name: Build e Push da imagem Docker do frontend
-          run: |
-            docker build -t npvet-frontend . &&
-            docker tag npvet-frontend:latest $AWS_U_ECR/npvet-frontend:latest &&
-            docker push $AWS_U_ECR/npvet-frontend:latest
+      - name: Console.log
+        run: ls -ltr
+      - name: Checkout código
+        uses: actions/checkout@v2
+      - name: Configure AWS credentials for kubectl
+        run: aws configure set aws_access_key_id $AWS_AKI && aws configure set aws_secret_access_key $AWS_SAK && aws configure set aws_session_token $AWS_ST && aws configure set region $AWS_R
+      - name: Configure AWS credentials for kubectl
+        run: aws ecr get-login-password --region $AWS_R | docker login --username AWS --password-stdin $AWS_U_ECR      
+      - name: Build e Push da imagem Docker do frontend
+        run: |
+          docker build -t npvet-frontend . &&
+          docker tag npvet-frontend:latest $AWS_U_ECR/npvet-frontend:latest &&
+          docker push $AWS_U_ECR/npvet-frontend:latest
