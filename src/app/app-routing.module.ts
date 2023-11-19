@@ -35,6 +35,7 @@ const routes: Routes = [
       { path: 'animais', component: AnimalListComponent },
       { path: 'animal/register', component: AnimalDetailsComponent },
       { path: 'animal/edit/:id', component: AnimalEditComponent },
+      { path: 'animal/:id', component: AnimalDetailsComponent},
       { path: 'consultas', component: ConsultaListComponent },
       { path: 'consulta/exame/register', component: ExameDetailsComponent },
       { path: 'consulta/exame/edit/:id', component: ExameEditComponent },

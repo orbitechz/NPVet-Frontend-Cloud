@@ -1,6 +1,7 @@
 
 <div class="container w-70">
   <app-mensagem [isErro]="isErro" [mensagem]="mensagem"></app-mensagem>
+  
   <form>
     <!--
   <div class="row g-3 add-pic d-flex text-align-start ">
@@ -14,54 +15,51 @@
     </div>
     <div class="row ">
       <div class="col-6">
-        <label for="inputNome" class="form-label">Nome<span style="color:red">*</span></label>
-        <input type="email" class="form-control" id="inputNome" [(ngModel)]="animal.nome" name="nome">
+        <label for="inputNome" class="form-label"> Nome<span style="color:red">*</span></label>
+        <input  *ngIf="!disabled" type="email" class="form-control" id="inputNome" [(ngModel)]="animal.nome" name="nome">
+        <h2     *ngIf="disabled" type="email" class="form-select" id="inputNome" name="nome">{{animal.nome}} </h2>
+
       </div>
+      
       <div class="col-6">
         <label for="inputEmail4" class="form-label">Idade<span style="color:red">*</span></label>
-        <input type="number" class="form-control" id="inputEmail4" [(ngModel)]="animal.idade" name="idade">
+        <input *ngIf="!disabled" type="number" class="form-control" id="inputEmail4" [(ngModel)]="animal.idade" name="idade">
+        <h2     *ngIf="disabled" type="email" class="form-select" id="inputEmail4" name="idade">{{animal.idade}} </h2>
       </div>
+      
     </div>
     <div class="row">
       <div class="col-6">
         <label for="inputEmail4" class="form-label">Espécie<span style="color:red">*</span></label>
-        <input type="email" class="form-control" id="inputEmail4" [(ngModel)]="animal.especie" name="especie">
+        <input *ngIf="!disabled" type="email" class="form-control" id="inputEmail4" [(ngModel)]="animal.especie" name="especie">
+        <h2 *ngIf="disabled" type="email" class="form-select" id="inputEmail4" name="especie">{{animal.especie}} </h2>
+
       </div>
       <div class="col-6">
         <label for="inputEmail4" class="form-label">Raça<span style="color:red">*</span></label>
-        <input type="email" class="form-control" id="inputEmail4" [(ngModel)]="animal.raca" name="raca">
+        <input *ngIf="!disabled" type="email" class="form-control" id="inputEmail4" [(ngModel)]="animal.raca" name="raca">
+        <h2    *ngIf="disabled" type="email" class="form-select" id="inputEmail4" name="raca">{{animal.raca}} </h2>
       </div>
+  
     </div>
     <div class="row">
       <div class="col-6">
         <label for="inputEmail4" class="form-label">Pelagem<span style="color:red">*</span></label>
-        <input type="email" class="form-control" id="inputEmail4" [(ngModel)]="animal.pelagem" name="pelagem">
+        <input  *ngIf="!disabled" type="email" class="form-control" id="inputEmail4" [(ngModel)]="animal.pelagem" name="pelagem">
+        <h2     *ngIf="disabled" type="email" class="form-select" id="inputEmail4"  name="pelagem">{{animal.pelagem}} </h2>
+
       </div>
+      
       <div class="col-6">
           <label for="animal-sexo" class="form-label">Sexo<span style="color:red">*</span></label>
           <select [disabled]="disabled" class="form-select" ngClass="['disabled': disabled]" required
               [(ngModel)]="animal.sexo" name="animal-sexo" class="form-select" aria-label="Sexo">
               <option *ngFor="let sexo of keys(sexos)" [value]="sexo" value="1">{{sexo}}
               </option>
-          </select>
-
-          
-          <!-- <input name="tutor-genero"
-              [(ngModel)]="tutor.genero" id="tutor-genero" type="text"> -->
-     
+          </select>     
       </div>
-
-    
-  
-    <!-- <div class="col-md-20">
-      <label for="inputEmail4" class="form-label">Tutor</label>
-      <input type="email" class="form-control" id="inputEmail4" (click)="open(content)">
-    </div> -->
     </div>
 
-    
-
-    
     <div class="col-md-20">
    
       <div class="col-md-20">
@@ -70,12 +68,13 @@
       </div>
 
 
-      <div class="col-md-8 pe-5 justify-content-between d-flex flex-row">
+      <div class="col-md-8 pe-5 justify-content-between d-flex flex-row" *ngIf="!disabled">
         <input type="text" [(ngModel)]="animal.tutorId" name="tutor"
           class="text-center form-control form-control-md input-hidden" required disabled />
         <p *ngIf="animal.tutorId" class="m-0 fw-bold pt-2">{{animal.tutorId.nome}}</p>
       </div>
-      <input type="email" class="form-control" id="inputEmail4" (click)="open(content)">
+      <input *ngIf="!disabled"type="email" class="form-control" id="inputEmail4" (click)="open(content)">
+      <h2  *ngIf="disabled" class="form-select">{{animal.tutorId.nome}}</h2>
     </div>
      
     <div class="col-12 d-flex justify-content-center py-5 ">

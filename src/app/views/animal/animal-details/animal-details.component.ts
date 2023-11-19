@@ -33,6 +33,7 @@ export class AnimalDetailsComponent implements OnInit {
   router = inject(Router);
   id!: string;
   url!: string;
+  detailsMode = false;
 
 
 
@@ -45,6 +46,19 @@ export class AnimalDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id') as string;
+
+  if(Number(this.id)){
+    this.getById(Number(this.id));
+    this.disabled = true;
+    this.detailsMode = true;
+    console.log("está desabilitado.");
+    console.log(this.detailsMode)
+
+    
+  
+  }
+  
   }
 
   salvar() {
@@ -84,5 +98,17 @@ export class AnimalDetailsComponent implements OnInit {
 
   moveTo() {
     window.scrollTo(0, 0);
+  }
+
+  getById(id: number) {
+    this.service.getById(id).subscribe({
+      next: (animais) => {
+        this.animal = animais;
+      },
+      error: (error) => {
+        this.isErro = true;
+        this.mensagem = error.error;
+      },
+    });
   }
 }
