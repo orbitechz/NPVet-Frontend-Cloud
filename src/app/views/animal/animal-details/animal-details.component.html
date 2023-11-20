@@ -76,12 +76,23 @@
       <input *ngIf="!disabled"type="email" class="form-control" id="inputEmail4" (click)="open(content)">
       <h2  *ngIf="disabled" class="form-select">{{animal.tutorId.nome}}</h2>
     </div>
-     
-    <div class="col-12 d-flex justify-content-center py-5 ">
-      <button type="submit" class="btn btn-primary btn-end" (click)="salvar()">Finalizar</button>
+       
+    <div class=" container w-70">
+      <div class="col-md-6 text-left">
+        <p class="title text-left m-0">Vacinas</p>
+      </div>
+    
+      
     </div>
+
+    <div class="col-12 d-flex justify-content-center py-5 ">
+      <button *ngIf="!disabled" type="submit" class="btn btn-primary btn-end" (click)="salvar()">Finalizar</button>
+      <button *ngIf="disabled" type="submit" class="btn btn-primary btn-end" (click)="sair()">Sair</button>
+    </div>
+    
   </form>
 </div>
+
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-body">

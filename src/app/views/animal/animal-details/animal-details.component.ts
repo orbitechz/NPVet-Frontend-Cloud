@@ -100,6 +100,11 @@ export class AnimalDetailsComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
+  sair(){
+    window.scrollTo(0, 0);
+    this.router.navigate(["['/web/animais']"]);
+  }
+
   getById(id: number) {
     this.service.getById(id).subscribe({
       next: (animais) => {
