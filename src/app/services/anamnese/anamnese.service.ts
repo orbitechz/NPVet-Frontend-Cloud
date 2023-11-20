@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { AnamnesePergunta } from 'src/app/models/anamnese-pergunta/anamnese-pergunta';
 import { ProgressoMedico } from 'src/app/models/progresso-medico/progresso-medico';
 import { Anamnese } from 'src/app/models/anamnese/anamnese';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnamneseService {
-
-  private baseUrl = 'http://localhost:8080/anamnese';
+  private baseUrl = `${environment.apiUrl}/anamnese`;
 
   constructor(private http: HttpClient) { }
 

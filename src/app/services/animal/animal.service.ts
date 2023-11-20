@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders, HttpParams, HttpStatusCode } from '@angular/co
 import { Inject, Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from 'src/app/models/animal/animal';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnimalService {
 
-  baseURL: string = 'http://localhost:8080/animal'
+  private baseURL = `${environment.apiUrl}/animal`;
   http = inject(HttpClient);
 
   constructor() { }

@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { Header } from 'src/app/components/table/header';
 import { Tutor } from 'src/app/models/tutor/tutor';
 import { Sexo } from 'src/app/models/enums/sexo';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-animal-edit',
@@ -87,6 +88,9 @@ export class AnimalEditComponent {
   selecionarTutor(tutor: Tutor){
     this.animal.tutorId = tutor
     this.modalService.dismissAll()
+  }
+  getUrlEspecifica(){
+    return `${environment.apiUrl}/tutor/all/ativos`
   }
 }
 

@@ -8,41 +8,41 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class TutorService {
-  API: string = 'http://localhost:8080/tutor' ;
+  private baseURL = `${environment.apiUrl}/tutor`;
   http = inject(HttpClient);
   constructor() {}
   getById(id: number): Observable<Tutor> {
-    return this.http.get<Tutor>(`${this.API}/id/${id}`);
+    return this.http.get<Tutor>(`${this.baseURL}/id/${id}`);
   }
   getByNome(nome: string): Observable<Tutor> {
-    return this.http.get<Tutor>(`${this.API}/nome/${nome}`);
+    return this.http.get<Tutor>(`${this.baseURL}/nome/${nome}`);
   }
   getAll(): Observable<Tutor[]> {
     console.log(environment.production)
-    return this.http.get<Tutor[]>(`${this.API}/all`);
+    return this.http.get<Tutor[]>(`${this.baseURL}/all`);
   }
   getAllAtivados(): Observable<Tutor[]> {
-    return this.http.get<Tutor[]>(`${this.API}/all/ativos`);
+    return this.http.get<Tutor[]>(`${this.baseURL}/all/ativos`);
   }
   getAllDesativados(): Observable<Tutor[]> {
-    return this.http.get<Tutor[]>(`${this.API}/all/desativados`);
+    return this.http.get<Tutor[]>(`${this.baseURL}/all/desativados`);
   }
   getByCpf(cpf: string): Observable<Tutor> {
-    return this.http.get<Tutor>(`${this.API}/cpf/${cpf}`);
+    return this.http.get<Tutor>(`${this.baseURL}/cpf/${cpf}`);
   }
   getByRg(rg: string): Observable<Tutor> {
-    return this.http.get<Tutor>(`${this.API}/rg/${rg}`);
+    return this.http.get<Tutor>(`${this.baseURL}/rg/${rg}`);
   }
   create(tutor: Tutor): Observable<Tutor> {
-    return this.http.post<Tutor>(`${this.API}/post`, tutor);
+    return this.http.post<Tutor>(`${this.baseURL}/post`, tutor);
   }
   update(id: number, tutor: Tutor): Observable<Tutor> {
-    return this.http.put<Tutor>(`${this.API}/update/${id}`, tutor);
+    return this.http.put<Tutor>(`${this.baseURL}/update/${id}`, tutor);
   }
   delete(id: number): Observable<Tutor> {
-    return this.http.delete<any>(`${this.API}/delete/${id}`);
+    return this.http.delete<any>(`${this.baseURL}/delete/${id}`);
   }
   activate(id: number): Observable<Tutor> {
-    return this.http.post<any>(`${this.API}/activate/${id}`, null);
+    return this.http.post<any>(`${this.baseURL}/activate/${id}`, null);
   }
 }

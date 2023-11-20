@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Header } from 'src/app/components/table/header';
 import { Tutor } from 'src/app/models/tutor/tutor';
 import { TutorService } from 'src/app/services/tutor/tutor.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-tutor-list',
@@ -37,7 +38,7 @@ export class TutorListComponent {
   }
 
   apiUrlPath(){
-    return 'http://localhost:8080/tutor';  
+    return `${environment.apiUrl}/tutor`;  
   }
   callHeaders(){
     let tableHeaders : Header[] = [];

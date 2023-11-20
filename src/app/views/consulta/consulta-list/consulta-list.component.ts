@@ -3,6 +3,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Header } from 'src/app/components/table/header';
 import { Consulta } from 'src/app/models/consulta/consulta';
 import { ConsultaService } from 'src/app/services/consulta/consulta.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-consulta-list',
@@ -36,7 +37,7 @@ export class ConsultaListComponent {
   }
 
   apiUrlPath(){
-    return 'http://localhost:8080/consulta';  
+    return `${environment.apiUrl}/consulta`;  
   }
   callHeaders(){
     let tableHeaders : Header[] = [];

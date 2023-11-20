@@ -13,6 +13,7 @@ import { Animal } from 'src/app/models/animal/animal';
 import { Sexo } from 'src/app/models/enums/sexo';
 import { Tutor } from 'src/app/models/tutor/tutor';
 import { AnimalService } from 'src/app/services/animal/animal.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-animal-details',
@@ -84,5 +85,9 @@ export class AnimalDetailsComponent implements OnInit {
 
   moveTo() {
     window.scrollTo(0, 0);
+  }
+
+  getUrlEspecifica(){
+    return `${environment.apiUrl}/tutor/all/ativos`
   }
 }
