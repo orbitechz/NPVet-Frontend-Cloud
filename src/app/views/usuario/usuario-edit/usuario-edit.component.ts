@@ -6,6 +6,7 @@ import { TipoUsuario } from 'src/app/models/enums/tipo-usuario';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { ConsultaService } from 'src/app/services/consulta/consulta.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-usuario-edit',
@@ -64,7 +65,7 @@ export class UsuarioEditComponent implements OnInit {
 
   // Table Component Logic
   apiUrlPath() {
-    return 'http://localhost:8080/consulta';
+    return `${environment.apiUrl}/consulta`;
   }
 
   callHeaders() {

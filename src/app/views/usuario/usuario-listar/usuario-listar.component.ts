@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Header } from 'src/app/components/table/header';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-usuario-listar',
@@ -12,7 +13,7 @@ export class UsuarioListarComponent {
 
   // Table Configuarations
   apiUrlPath(){
-    return 'http://localhost:8080/usuario';  
+    return `${environment.apiUrl}/usuario`;  
   }
   callHeaders(){
     let tableHeaders : Header[] = [];

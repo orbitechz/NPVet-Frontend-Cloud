@@ -10,6 +10,7 @@ import { Genero } from 'src/app/models/enums/genero';
 import { Tutor } from 'src/app/models/tutor/tutor';
 import { AnimalService } from 'src/app/services/animal/animal.service';
 import { TutorService } from 'src/app/services/tutor/tutor.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-tutor-details',
@@ -139,7 +140,7 @@ export class TutorDetailsComponent implements OnInit {
   }
   getUrlAnimais(){
     if(Number(this.id)){
-      return `http://localhost:8080/animal/tutor/${Number(this.id)}`
+      return `${environment.apiUrl}/animal/tutor/${Number(this.id)}`
     }else{
       return 'null'
     }

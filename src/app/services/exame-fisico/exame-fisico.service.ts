@@ -2,13 +2,14 @@ import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ExameFisico } from 'src/app/models/exame-fisico/exame-fisico';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExameFisicoService {
-  baseURL: string = 'http://localhost:8080/examefisico'
+  private baseURL = `${environment.apiUrl}/examefisico`;
   http = inject(HttpClient);
 
   constructor() { }

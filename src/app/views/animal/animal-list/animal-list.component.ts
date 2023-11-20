@@ -4,6 +4,7 @@ import { AnimalService } from 'src/app/services/animal/animal.service';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Header } from 'src/app/components/table/header';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -37,7 +38,7 @@ export class AnimalListComponent {
   }
 
   apiUrlPath(){
-    return 'http://localhost:8080/animal';  
+    return   `${environment.apiUrl}/animal`;  
   }
   callHeaders(){
     let tableHeaders : Header[] = [];

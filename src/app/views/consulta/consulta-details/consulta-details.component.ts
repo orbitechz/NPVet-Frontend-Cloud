@@ -7,6 +7,7 @@ import { Consulta } from 'src/app/models/consulta/consulta';
 import { Status } from 'src/app/models/enums/status';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { ConsultaService } from 'src/app/services/consulta/consulta.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-consulta-details',
@@ -95,5 +96,12 @@ export class ConsultaDetailsComponent implements OnInit {
   exameFisico(){
     this.modalService.dismissAll()
     this.router.navigate(['/web/exame/register', this.consulta.id])
+  }
+
+  getAnimalUrl(){
+    return `${environment.apiUrl}/animal`
+  }
+  getUsuarioUrlEspecifica(){
+    return `${environment.apiUrl}/usuario/veterinarios`
   }
 }
