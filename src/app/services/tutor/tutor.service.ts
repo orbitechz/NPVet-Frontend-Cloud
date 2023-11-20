@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Tutor } from 'src/app/models/tutor/tutor';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ export class TutorService {
     return this.http.get<Tutor>(`${this.API}/nome/${nome}`);
   }
   getAll(): Observable<Tutor[]> {
+    console.log(environment.production)
     return this.http.get<Tutor[]>(`${this.API}/all`);
   }
   getAllAtivados(): Observable<Tutor[]> {
