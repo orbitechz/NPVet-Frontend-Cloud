@@ -1,5 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Header } from 'src/app/components/table/header';
 import { Consulta } from 'src/app/models/consulta/consulta';
 import { ConsultaService } from 'src/app/services/consulta/consulta.service';
@@ -19,6 +19,7 @@ export class ConsultaListComponent {
   modalService = inject(NgbModal)
   data: any[] = [];
   consultaSelecionada!: Consulta
+  modalRef!: NgbModalRef;
 
 
   constructor() {
@@ -62,5 +63,12 @@ export class ConsultaListComponent {
       this.mensagem ="Consulta criada com sucesso!"
     }
   }
+  abrirModal(template: any) {
+    this.modalRef = this.modalService.open(template, {
+      size: 'lg',
+      centered: true,
+    });
+  }
+
 }
 

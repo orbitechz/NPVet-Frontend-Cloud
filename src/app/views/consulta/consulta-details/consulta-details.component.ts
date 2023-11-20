@@ -97,7 +97,6 @@ export class ConsultaDetailsComponent implements OnInit {
     this.modalService.dismissAll()
     this.router.navigate(['/web/exame/register', this.consulta.id])
   }
-
   getAnimalUrl(){
     return `${environment.apiUrl}/animal`
   }
