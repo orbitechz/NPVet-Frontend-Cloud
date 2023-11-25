@@ -15,10 +15,12 @@ import { ExameEditComponent } from './views/exame-fisico/exame-edit/exame-edit/e
 import { AnamneseEditComponent } from './views/anamnese/anamnese-edit/anamnese-edit.component';
 import { MenuPrincipalComponent } from './views/menu-principal/menu-principal.component';
 import { AnimalEditComponent } from './views/animal/animal-edit/animal-edit/animal-edit.component';
+import { LoginComponent } from './core/login/login.component';
  
 
 const routes: Routes = [
   { path: '', redirectTo: 'web', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent},
   {
     path: 'web',
     component: IndexComponent,
