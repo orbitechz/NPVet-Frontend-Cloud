@@ -10,15 +10,16 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class LoginService {
-  private baseURL = `${environment.apiUrl}/usuario`;
+  private baseURL = `${environment.apiUrl}/auth`;
   http = inject(HttpClient);
   constructor() { }
-  logar(login: Login): Observable<Usuario> {
+  login(login: Login): Observable<Usuario> {
     return this.http.post<Usuario>(this.baseURL, login);
   }
 
   logout(): Observable<any> {
-    return this.http.get<any>(this.baseURL + '/deslogar');
+    this.removeToken()
+    return this.http.get<any>(this.baseURL + '/logout');
   }
   addToken(token: string) {
     localStorage.setItem('token', token);

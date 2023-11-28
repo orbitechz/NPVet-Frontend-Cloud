@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MenuComponent } from './core/menu/menu.component';
-import { LoginComponent } from './core/login/login.component';
 import { ErrorsComponent } from './core/errors/errors.component';
 import { TutorListComponent } from './views/tutor/tutor-list/tutor-list.component';
 import { TutorDetailsComponent } from './views/tutor/tutor-details/tutor-details.component';
@@ -48,6 +47,7 @@ import { AnamneseEditComponent } from './views/anamnese/anamnese-edit/anamnese-e
 import { MenuPrincipalComponent } from './views/menu-principal/menu-principal.component';
 import { AnimalEditComponent } from './views/animal/animal-edit/animal-edit/animal-edit.component';
 import { HttpInterceptorService } from './interceptors/http-interceptor.service';
+import { LoginComponent } from './core/login/login.component';
 
 @NgModule({
   declarations: [
