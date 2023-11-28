@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Header } from 'src/app/components/table/header';
+import { LoginService } from 'src/app/services/login/login.service';
+import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -7,10 +9,15 @@ import { environment } from 'src/environments/environment';
   templateUrl: './usuario-listar.component.html',
   styleUrls: ['./usuario-listar.component.scss'],
 })
-export class UsuarioListarComponent {
+export class UsuarioListarComponent implements OnInit {
+
   isErro!: boolean;
   mensagem!: string;
-
+  hasPermission = false;
+  authService = inject(LoginService)
+  ngOnInit(): void {
+    this.hasPermission = this.authService.hasPermission("ADMINISTRADOR")
+  }
   // Table Configuarations
   apiUrlPath() {
     return `${environment.apiUrl}/usuario`;

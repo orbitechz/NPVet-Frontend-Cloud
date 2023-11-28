@@ -44,6 +44,7 @@ export class LoginService {
     roles.forEach((r: string) => {
       if (role === r) hasRole = true;
     });
+    console.log(hasRole)
     return hasRole;
   }
 }

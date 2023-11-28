@@ -3,6 +3,6 @@
         <app-register-btn [text]="'Cadastrar novo Usuário'" [registerLink]="'web/usuario/register'" class="align-self-start"></app-register-btn>
         <app-mensagem [isErro]="isErro" [mensagem]="mensagem" class="w-75"></app-mensagem>
         <app-table [title]="'Usuários Cadastrados'" [headers]="callHeaders()" [apiUrl]="apiUrlPath()"
-            [editPath]="'web/usuario/edit'" [showId]="false" [detailsPath]="'web/usuario/edit'" [entidade]="'Usuario'" [showToggle]="true"></app-table>
+            [editPath]="'web/usuario/edit'" [showId]="false" [detailsPath]="'web/usuario/edit'" [entidade]="'Usuario'" [showToggle]="true" [hasPermission]="hasPermission"></app-table>
     </div>
 </div>

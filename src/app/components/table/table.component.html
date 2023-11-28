@@ -7,8 +7,8 @@
         </div>
         <div class="d-flex justify-content-between mb-3">
             <h3 class="text-primary font-outfit">{{title}}</h3>
-            <mat-slide-toggle *ngIf="showAtivoFilter" class="w-25 pt-2" name="estadoAtivo" [formControl]="switchEstado" #estadoAtivo
-                (change)="filtrarEstado()" color="primary">
+            <mat-slide-toggle *ngIf="showAtivoFilter" class="w-25 pt-2" name="estadoAtivo" [formControl]="switchEstado"
+                #estadoAtivo (change)="filtrarEstado()" color="primary">
                 <p class="m-0 text-primary switch"> Mostrar apenas ativos </p>
             </mat-slide-toggle>
         </div>
@@ -33,10 +33,18 @@
                         <td *ngFor="let header of headers" class="col">{{retornarValor(header, entidade)}}</td>
                     </div>
                     <td *ngIf="showToggle || showEdit" class="acoes col-md-2">
-                        <div *ngIf="showEdit" class="acao hover" (click)="onEditClick(entidade)">
+                        <div [ngClass]="
+                        {
+                            'blocked': !hasPermission
+                        }
+                        " *ngIf="showEdit" class="acao hover" (click)="onEditClick(entidade)">
                             <bi class="icon" name="pen-fill"></bi>
                         </div>
-                        <div *ngIf="showToggle" class="acao hover" (click)="onToggleClick(toggle, entidade)">
+                        <div [ngClass]="
+                        {
+                            'blocked': !hasPermission
+                        }
+                        " *ngIf="showToggle" class="acao hover" (click)="onToggleClick(toggle, entidade)">
                             <bi *ngIf="!entidade.deletedAt" class="icon" name="trash-fill"></bi>
                             <bi *ngIf="entidade.deletedAt" class="icon" name="arrow-clockwise"></bi>
                         </div>
@@ -44,7 +52,8 @@
                 </tr>
             </tbody>
         </table>
-        <div *ngIf="dados.length == 0 || dadosFiltrados.length == 0" class="mt-5 text-align-center  alert-nao-encontrado" role="alert">
+        <div *ngIf="dados.length == 0 || dadosFiltrados.length == 0"
+            class="mt-5 text-align-center  alert-nao-encontrado" role="alert">
             Nenhum item encontrado
         </div>
     </div>

@@ -21,8 +21,6 @@ export const routesGuard: CanActivateFn = (route, state) => {
       router.navigate(['/login']);
       return true;
     }else{
-      console.log(role)
-      console.log(loginService.hasPermission(role) || loginService.hasPermission("ADMINISTRADOR") || role==="*")
       return loginService.hasPermission(role) || loginService.hasPermission("ADMINISTRADOR") || role==="*"
     }
   }

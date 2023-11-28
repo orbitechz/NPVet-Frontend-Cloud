@@ -116,3 +116,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     display: none;
     visibility: hidden;
 }
+
+.blocked,
+.blocked p{
+    cursor: not-allowed !important;
+    color:#7B7A7A !important;
+}
+.blocked bi{
+    color: #afafaf !important ;
+}

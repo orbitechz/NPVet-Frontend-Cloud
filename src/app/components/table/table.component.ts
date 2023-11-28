@@ -36,6 +36,7 @@ export class TableComponent implements OnInit {
   @Input() showEdit: boolean = true;
   @Input() showAtivoFilter: boolean = true;
   @Input() isModal: boolean = false
+  @Input() hasPermission: boolean = true;
   @Output() toggleClick = new EventEmitter<number>();
   @Output() detailsClick = new EventEmitter<any>();
   switchEstado = new FormControl(false);
