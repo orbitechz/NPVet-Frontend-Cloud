@@ -31,7 +31,7 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
   private errorHandler(err: HttpErrorResponse): Observable<any> {
     console.log(err)
-    if (err.status === 401) {
+    if (err.status === 401 || err.statusText==="Unknown Error") {
       this.loginService.logout()
       this.router.navigateByUrl(`/login`);
       return of(err.message);
