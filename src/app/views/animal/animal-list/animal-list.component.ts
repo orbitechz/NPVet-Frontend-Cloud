@@ -19,9 +19,7 @@ export class AnimalListComponent {
   mensagem!: string
   animais: Animal[] = [];
   service = inject(AnimalService);
-
   data: any[] = [];
-
   authService = inject(LoginService)
   showEdit = false
   showToggle = false;
@@ -29,15 +27,9 @@ export class AnimalListComponent {
   role!: string
   constructor(private route: ActivatedRoute){}
   ngOnInit(): void {
-    this.route.data.subscribe({
-      next: (data) => {
-        this.role = data['role'];
-      }
-    });
-    this.hasPermission = this.authService.hasPermission("SECRETARIA")
-    this.showEdit = this.showToggle = this.hasPermission
+    this.showEdit = this.hasPermission = this.authService.hasPermission("SECRETARIA")
+    this.showToggle = this.authService.hasPermission("ADMINISTRADOR")
     this.getAll();
-
   }
   getAll() {
     this.service.getAll().subscribe({

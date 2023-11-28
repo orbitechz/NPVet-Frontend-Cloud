@@ -28,13 +28,8 @@ export class TutorListComponent {
   role!: string
   constructor(private route: ActivatedRoute){}
   ngOnInit(): void {
-    this.route.data.subscribe({
-      next: (data) => {
-        this.role = data['role'];
-      }
-    });
-    this.hasPermission = this.authService.hasPermission("SECRETARIA")
-    this.showEdit = this.showToggle = this.hasPermission
+    this.showEdit = this.hasPermission = this.authService.hasPermission("SECRETARIA")
+    this.showToggle = this.authService.hasPermission("ADMINISTRADOR")
     this.getAll();
 
   }
