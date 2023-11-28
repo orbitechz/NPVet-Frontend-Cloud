@@ -125,7 +125,7 @@ const routes: Routes = [
         path: 'consulta/exame/edit/:id',
         component: ExameEditComponent,
         canActivate: [routesGuard],
-        data: { role: 'MEDICO' },
+        data: { role: '*' },
       },
       {
         path: 'anamnese/register/:id',
