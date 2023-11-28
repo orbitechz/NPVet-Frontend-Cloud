@@ -103,7 +103,7 @@ export class AnimalDetailsComponent implements OnInit {
 
   sair(){
     window.scrollTo(0, 0);
-    this.router.navigate(["['/web/animais']"]);
+    this.router.navigate(["/web/animais"]);
   }
 
   getById(id: number) {
