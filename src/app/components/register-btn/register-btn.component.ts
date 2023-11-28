@@ -7,7 +7,7 @@ import { LoginService } from 'src/app/services/login/login.service';
   templateUrl: './register-btn.component.html',
   styleUrls: ['./register-btn.component.scss']
 })
-export class RegisterBtnComponent implements OnInit {
+export class RegisterBtnComponent {
   @Input() registerLink!: string
   @Input() text: string = "Cadastrar novo"
   @Input() hasPermission: boolean = true
@@ -15,9 +15,7 @@ export class RegisterBtnComponent implements OnInit {
   router = inject(Router)
   authService = inject(LoginService)
   constructor(){}
-  ngOnInit(): void {
-    this.hasPermission = this.authService.hasPermission("ADMINISTRADOR")
-  }
+
 
   register(){
     if(!this.registerLink){

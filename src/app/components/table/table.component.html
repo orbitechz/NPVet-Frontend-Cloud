@@ -33,18 +33,10 @@
                         <td *ngFor="let header of headers" class="col">{{retornarValor(header, entidade)}}</td>
                     </div>
                     <td *ngIf="showToggle || showEdit" class="acoes col-md-2">
-                        <div [ngClass]="
-                        {
-                            'blocked': !hasPermission
-                        }
-                        " *ngIf="showEdit" class="acao hover" (click)="onEditClick(entidade)">
+                        <div *ngIf="showEdit" class="acao hover" (click)="onEditClick(entidade)">
                             <bi class="icon" name="pen-fill"></bi>
                         </div>
-                        <div [ngClass]="
-                        {
-                            'blocked': !hasPermission
-                        }
-                        " *ngIf="showToggle" class="acao hover" (click)="onToggleClick(toggle, entidade)">
+                        <div *ngIf="showToggle" class="acao hover" (click)="onToggleClick(toggle, entidade)">
                             <bi *ngIf="!entidade.deletedAt" class="icon" name="trash-fill"></bi>
                             <bi *ngIf="entidade.deletedAt" class="icon" name="arrow-clockwise"></bi>
                         </div>

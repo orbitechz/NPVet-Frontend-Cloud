@@ -38,13 +38,17 @@ export class LoginService {
     return '';
   }
   hasPermission(role: string) {
-    let token = this.jwtDecode() as any;
-    let roles = token.realm_access.roles;
-    let hasRole = false
-    roles.forEach((r: string) => {
-      if (role === r) hasRole = true;
-    });
-    console.log(hasRole)
-    return hasRole;
+    if(role==="*"){
+      return true
+    }else{
+      let token = this.jwtDecode() as any;
+      let roles = token.realm_access.roles;
+      let hasRole = false
+      roles.forEach((r: string) => {
+        if (role === r) hasRole = true;
+        if (r==="ADMINISTRADOR") hasRole = true
+      });
+      return hasRole;
+    }
   }
 }
