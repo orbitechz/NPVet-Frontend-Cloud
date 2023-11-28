@@ -18,7 +18,6 @@ export class TutorService {
     return this.http.get<Tutor>(`${this.baseURL}/nome/${nome}`);
   }
   getAll(): Observable<Tutor[]> {
-    console.log(environment.production)
     return this.http.get<Tutor[]>(`${this.baseURL}/all`);
   }
   getAllAtivados(): Observable<Tutor[]> {

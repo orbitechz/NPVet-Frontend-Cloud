@@ -7,18 +7,18 @@ import { Usuario } from 'src/app/models/usuario/usuario';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
   private baseURL = `${environment.apiUrl}/auth`;
   http = inject(HttpClient);
-  constructor() { }
+  constructor() {}
   login(login: Login): Observable<Usuario> {
     return this.http.post<Usuario>(this.baseURL, login);
   }
 
   logout(): Observable<any> {
-    this.removeToken()
+    this.removeToken();
     return this.http.get<any>(this.baseURL + '/logout');
   }
   addToken(token: string) {
@@ -35,13 +35,15 @@ export class LoginService {
     if (token) {
       return jwtDecode<JwtPayload>(token);
     }
-    return "";
+    return '';
   }
   hasPermission(role: string) {
-    let Usuario = this.jwtDecode() as Usuario;
-    if (Usuario.role == role)
-      return true;
-    else
-      return false;
+    let token = this.jwtDecode() as any;
+    let roles = token.realm_access.roles;
+    let hasRole = false
+    roles.forEach((r: string) => {
+      if (role === r) hasRole = true;
+    });
+    return hasRole;
   }
 }

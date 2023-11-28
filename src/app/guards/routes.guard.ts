@@ -5,18 +5,25 @@ import { LoginService } from '../services/login/login.service';
 export const routesGuard: CanActivateFn = (route, state) => {
   let loginService = inject(LoginService);
   let router = inject(Router);
-  let rota = route.url.toString()
-  let token = loginService.getToken()
+  let rota = route.url.toString();
+  let token = loginService.getToken();
+  let role = route.data['role'];
 
-  if(rota === "login"){
-    if(token != null) router.navigate(['/web']) ;
-    return true
-  }else if(rota === "logout"){
-    loginService.logout()
-    router.navigate(['/web']) ;
+  if (rota === 'login') {
+    if (token != null) router.navigate(['/web']);
     return true;
-  }else{
-    if(token === null) router.navigate(['/login']) ;
-    return true
+  } else if (rota === 'logout') {
+    loginService.logout();
+    router.navigate(['/web']);
+    return true;
+  } else {
+    if (token === null) {
+      router.navigate(['/login']);
+      return true;
+    }else{
+      console.log(role)
+      console.log(loginService.hasPermission(role) || loginService.hasPermission("ADMINISTRADOR") || role==="*")
+      return loginService.hasPermission(role) || loginService.hasPermission("ADMINISTRADOR") || role==="*"
+    }
   }
 };
