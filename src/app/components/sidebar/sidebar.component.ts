@@ -16,6 +16,7 @@ export class SidebarComponent {
     this.modalService.open(template)
   }
   logout(){
-    this.router.navigate(['/logout'])
+    this.modalService.dismissAll()
+    this.router.navigateByUrl('/logout')
   }
 }
