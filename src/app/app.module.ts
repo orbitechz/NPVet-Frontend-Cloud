@@ -32,21 +32,22 @@ import { ExameListComponent } from './views/exame-fisico/exame-list/exame-list.c
 import { ExameDetailsComponent } from './views/exame-fisico/exame-details/exame-details.component';
 import { MatOption } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatSelectModule } from '@angular/material/select';
-import {MatFormFieldModule } from '@angular/material/form-field';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatInputModule} from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
 import { AsyncPipe } from '@angular/common';
 import { ExameEditComponent } from './views/exame-fisico/exame-edit/exame-edit/exame-edit.component';
 import { NgxViacepModule } from '@brunoc/ngx-viacep';
-import {MatTooltipModule} from '@angular/material/tooltip';
-// import { MatSelectFilter } 
+import { MatTooltipModule } from '@angular/material/tooltip';
+// import { MatSelectFilter }
 
 // import { MatSelec};
 import { ConsultaAnamneseDetailsComponent } from './views/anamnese/consulta-anamnese-details/consulta-anamnese-details.component';
 import { AnamneseEditComponent } from './views/anamnese/anamnese-edit/anamnese-edit.component';
 import { MenuPrincipalComponent } from './views/menu-principal/menu-principal.component';
 import { AnimalEditComponent } from './views/animal/animal-edit/animal-edit/animal-edit.component';
+import { HttpInterceptorService } from './interceptors/http-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,7 @@ import { AnimalEditComponent } from './views/animal/animal-edit/animal-edit/anim
     MenuPrincipalComponent,
     AnimalEditComponent,
   ],
- imports: [
+  imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
@@ -91,16 +92,16 @@ import { AnimalEditComponent } from './views/animal/animal-edit/animal-edit/anim
     NgxMaskPipe,
     MatSlideToggleModule,
     BrowserAnimationsModule,
-    MatSelectModule, 
+    MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
     AsyncPipe,
     NgxViacepModule,
-    MatTooltipModule
-    // MatSelectFilterModule 
+    MatTooltipModule,
+    // MatSelectFilterModule
   ],
-  providers: [UsuarioService],
+  providers: [UsuarioService, HttpInterceptorService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

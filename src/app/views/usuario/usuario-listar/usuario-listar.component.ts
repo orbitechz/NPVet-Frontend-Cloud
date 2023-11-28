@@ -5,22 +5,22 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-usuario-listar',
   templateUrl: './usuario-listar.component.html',
-  styleUrls: ['./usuario-listar.component.scss']
+  styleUrls: ['./usuario-listar.component.scss'],
 })
 export class UsuarioListarComponent {
-  isErro!: boolean
-  mensagem!: string
+  isErro!: boolean;
+  mensagem!: string;
 
   // Table Configuarations
-  apiUrlPath(){
-    return `${environment.apiUrl}/usuario`;  
+  apiUrlPath() {
+    return `${environment.apiUrl}/usuario`;
   }
-  callHeaders(){
-    let tableHeaders : Header[] = [];
+  callHeaders() {
+    let tableHeaders: Header[] = [];
     tableHeaders.push(new Header('Nome', 'nome'));
-    tableHeaders.push(new Header('Username', 'username')); 
+    tableHeaders.push(new Header('Username', 'username'));
     tableHeaders.push(new Header('CPF', 'cpf'));
-    tableHeaders.push(new Header('Tipo Usuario','tipoUsuario'));   
+    tableHeaders.push(new Header('Tipo Usuario', 'role'));
     return tableHeaders;
   }
 }

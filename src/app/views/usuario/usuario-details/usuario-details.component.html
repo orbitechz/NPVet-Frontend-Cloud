@@ -1,123 +1,75 @@
 <div class="register-usuario container w-80">
-    <div class="registerForm">
-      <app-mensagem [isErro]="isErro" [mensagem]="mensagem" class="w-50"></app-mensagem>
-      <form
-        action=""
-        class="needs-validation"
-        #usuarioForm="ngForm"
-        (ngSubmit)="submitForm(usuarioForm)"
-        novalidate
-      >
-        <div class="row mb-3">
-          <!-- Nome -->
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="nome" class="mb-1">Nome<span style="color:red">*</span></label>
-              <input
-                type="text"
-                id="nome"
-                class="form-control"
-                name="nome"
-                [(ngModel)]="usuario.nome"
-                required
-              />
-            </div>
-          </div>
-          <!-- CPF -->
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="cpf" class="mb-1">CPF<span style="color:red">*</span></label>
-              <input
-                type="text"
-                id="cpf"
-                class="form-control"
-                name="cpf"
-                [(ngModel)]="usuario.cpf"
-                placeholder="000.000.000-00"
-                maxlength="14"
-                mask="000.000.000-00"
-                required
-              />
-            </div>
-          </div>
-          <!-- Tipo do Usuário -->
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="tipoUsuario" class="mb-1">Tipo do Usuário<span style="color:red">*</span></label>
-              <select
-                id="tipoUsuario"
-                class="form-select"
-                name="tipoUsuario"
-                [(ngModel)]="usuario.tipoUsuario"
-                required
-              >
-                <option [ngValue]="null" disabled selected>
-                  Selecione um tipo
-                </option>
-                <option
-                  *ngFor="let tipo of tipoUsuarioEnum | keyvalue"
-                  [ngValue]="tipo.key"
-                >
-                  {{ tipo.value }}
-                </option>
-              </select>
-            </div>
+  <div class="registerForm">
+    <app-mensagem [isErro]="isErro" [mensagem]="mensagem" class="w-50"></app-mensagem>
+    <form action="" class="needs-validation" #usuarioForm="ngForm" (ngSubmit)="submitForm(usuarioForm)" novalidate>
+      <div class="row mb-3">
+        <!-- Nome -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="nome" class="mb-1">Nome<span style="color:red">*</span></label>
+            <input type="text" id="nome" class="form-control" name="nome" [(ngModel)]="usuario.nome" required />
           </div>
         </div>
-        <div class="row mb-3">
-          <!-- Username -->
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="username" class="mb-1">Username<span style="color:red">*</span></label>
-              <input
-                type="email"
-                id="username"
-                class="form-control"
-                name="username"
-                [(ngModel)]="usuario.username"
-                required
-              />
-            </div>
-          </div>
-          <!-- Senha -->
-          <div class="col-md-4 d-flex align-items-center justify-content-between">
-            <div class="form-group pass">
-              <label for="senha" class="mb-1">Senha<span style="color:red">*</span></label>
-              <input
-                [type]="hide ? 'password' : 'text'"
-                id="senha"
-                class="form-control"
-                name="senha"
-                [(ngModel)]="usuario.senha"
-                required
-              />
-            </div>
-            <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="eye align-self-end">
-              <i [class]="hide ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
-            </button>
-          </div>
-          <!-- Confirmar Senha -->
-          <div class="col-md-4 d-flex align-items-center justify-content-between">
-            <div class="form-group pass">
-              <label for="confirmarSenha" class="mb-1">Confirmar Senha<span style="color:red">*</span></label>
-              <input
-                [type]="hide2 ? 'password' : 'text'"
-                id="confirmarSenha"
-                class="form-control"
-                name="confirmarSenha"
-                [(ngModel)]="confirmarSenha"
-                required
-              />
-            </div>
-            <button (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2" class="eye2 align-self-end">
-              <i [class]="hide2 ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
-            </button>
+        <!-- CPF -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="cpf" class="mb-1">CPF<span style="color:red">*</span></label>
+            <input type="text" id="cpf" class="form-control" name="cpf" [(ngModel)]="usuario.cpf"
+              placeholder="000.000.000-00" maxlength="14" mask="000.000.000-00" required />
           </div>
         </div>
-        <div class="text-center">
-          <button type="submit" class="btn btn-sm btn-primary align-self-center">Cadastrar</button>
+        <!-- Tipo do Usuário -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="role" class="mb-1">Tipo do Usuário<span style="color:red">*</span></label>
+            <select id="role" class="form-select" name="role" [(ngModel)]="usuario.role" required>
+              <option [ngValue]="null" disabled selected>
+                Selecione um tipo
+              </option>
+              <option *ngFor="let tipo of roleEnum | keyvalue" [ngValue]="tipo.key">
+                {{ tipo.value }}
+              </option>
+            </select>
+          </div>
         </div>
-      </form>
-    </div>
+      </div>
+      <div class="row mb-3">
+        <!-- Username -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="username" class="mb-1">Username<span style="color:red">*</span></label>
+            <input type="email" id="username" class="form-control" name="username" [(ngModel)]="usuario.username"
+              required />
+          </div>
+        </div>
+        <!-- Senha -->
+        <div class="col-md-4 d-flex align-items-center justify-content-between">
+          <div class="form-group pass">
+            <label for="senha" class="mb-1">Senha<span style="color:red">*</span></label>
+            <input [type]="hide ? 'password' : 'text'" id="senha" class="form-control" name="senha"
+              [(ngModel)]="usuario.senha" required />
+          </div>
+          <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
+            class="eye align-self-end">
+            <i [class]="hide ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
+          </button>
+        </div>
+        <!-- Confirmar Senha -->
+        <div class="col-md-4 d-flex align-items-center justify-content-between">
+          <div class="form-group pass">
+            <label for="confirmarSenha" class="mb-1">Confirmar Senha<span style="color:red">*</span></label>
+            <input [type]="hide2 ? 'password' : 'text'" id="confirmarSenha" class="form-control" name="confirmarSenha"
+              [(ngModel)]="confirmarSenha" required />
+          </div>
+          <button (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2"
+            class="eye2 align-self-end">
+            <i [class]="hide2 ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
+          </button>
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-sm btn-primary align-self-center">Cadastrar</button>
+      </div>
+    </form>
   </div>
-  
+</div>

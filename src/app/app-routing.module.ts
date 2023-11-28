@@ -16,16 +16,17 @@ import { AnamneseEditComponent } from './views/anamnese/anamnese-edit/anamnese-e
 import { MenuPrincipalComponent } from './views/menu-principal/menu-principal.component';
 import { AnimalEditComponent } from './views/animal/animal-edit/animal-edit/animal-edit.component';
 import { LoginComponent } from './core/login/login.component';
- 
+import { routesGuard } from './guards/routes.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'web', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent},
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, canActivate: [routesGuard] },
   {
     path: 'web',
     component: IndexComponent,
+    canActivate: [routesGuard],
     children: [
-      { path: '', redirectTo: 'menu', pathMatch: 'full'  },
+      { path: '', redirectTo: 'menu', pathMatch: 'full' },
       { path: 'menu', component: MenuPrincipalComponent },
       { path: 'tutores', component: TutorListComponent },
       { path: 'tutor/register', component: TutorDetailsComponent },
@@ -37,12 +38,15 @@ const routes: Routes = [
       { path: 'animais', component: AnimalListComponent },
       { path: 'animal/register', component: AnimalDetailsComponent },
       { path: 'animal/edit/:id', component: AnimalEditComponent },
-      { path: 'animal/:id', component: AnimalDetailsComponent},
+      { path: 'animal/:id', component: AnimalDetailsComponent },
       { path: 'consultas', component: ConsultaListComponent },
       { path: 'consulta/exame/register', component: ExameDetailsComponent },
       { path: 'consulta/exame/edit/:id', component: ExameEditComponent },
-      { path: 'anamnese/register/:id', component: ConsultaAnamneseDetailsComponent},
-      { path: 'anamnese/edit/:id', component: AnamneseEditComponent},
+      {
+        path: 'anamnese/register/:id',
+        component: ConsultaAnamneseDetailsComponent,
+      },
+      { path: 'anamnese/edit/:id', component: AnamneseEditComponent },
       { path: 'exame/register/:id', component: ExameDetailsComponent },
     ],
   },
