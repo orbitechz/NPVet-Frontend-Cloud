@@ -18,7 +18,7 @@
             <thead class="d-grid container">
                 <tr class="row">
                     <div class="row col p-0">
-                        <th class="col-md-1">Código</th>
+                        <th *ngIf="showId" class="col-md-1">Código</th>
                         <th class="col" *ngFor="let header of headers">{{ header.header }}</th>
                     </div>
                     <div *ngIf="showToggle || showEdit" class="acoes col-md-2">
@@ -29,7 +29,7 @@
             <tbody class="d-grid container">
                 <tr class="row" *ngFor="let entidade of dadosFiltrados">
                     <div class="h-100 col row linha hover" (click)="onDetailsClick(entidade)">
-                        <th class="col-md-1">{{entidade["id"]}}</th>
+                        <th *ngIf="showId" class="col-md-1">{{entidade["id"]}}</th>
                         <td *ngFor="let header of headers" class="col">{{retornarValor(header, entidade)}}</td>
                     </div>
                     <td *ngIf="showToggle || showEdit" class="acoes col-md-2">
