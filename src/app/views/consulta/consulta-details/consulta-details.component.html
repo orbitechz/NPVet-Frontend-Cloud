@@ -84,11 +84,19 @@
                     <div class="px-5 gap-4 d-flex flex-row justify-content-center py-4">
                         <button *ngIf="!disabled" type="button" class="color-white btn font-outfit btn-primary"
                             (click)="confirmar()">Confirmar</button>
-                        <button *ngIf="disabled" type="button" class="color-white btn font-outfit  btn-primary"
+                        <button [ngClass]="
+                        {
+                            'blocked': !hasPermission
+                        }
+                        " *ngIf="disabled" type="button" class="color-white btn font-outfit  btn-primary"
                             (click)="anamnese()">Anamnese</button>
-                        <button *ngIf="disabled" type="button" class="color-white btn font-outfit  btn-primary"
+                        <button [ngClass]="
+                        {
+                            'blocked': !hasPermission
+                        }
+                        " *ngIf="disabled" type="button" class="color-white btn font-outfit  btn-primary"
                             (click)="exameFisico()">Adicionar Exame Físico</button>
-                        
+
                         <!-- <button *ngIf="modoEditar" type="submit" class="btn btn-edit"
                             (click)="editar()">Editar</button>
                         <button *ngIf="!modoEditar && id && pedido.delecao === null" type="submit"
@@ -128,8 +136,8 @@
     </div>
     <div class="modal-body">
         <app-table [title]="'Veterinários Cadastrados'" [isModal]="true" [headers]="callVeterinarioHeaders()"
-            [urlEspecifica]="getUsuarioUrlEspecifica()" [entidade]="'Usuario'" [showToggle]="false"
-            [showEdit]="false" [showAtivoFilter]="false" (detailsClick)="definirVeterinario($event)"></app-table>
+            [urlEspecifica]="getUsuarioUrlEspecifica()" [entidade]="'Usuario'" [showToggle]="false" [showEdit]="false"
+            [showAtivoFilter]="false" (detailsClick)="definirVeterinario($event)"></app-table>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary font-outfit" (click)="modal.close('Close click')">Fechar</button>
