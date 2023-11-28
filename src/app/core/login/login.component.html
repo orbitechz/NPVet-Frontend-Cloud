@@ -8,12 +8,12 @@
             <form class="w-100 d-flex align-items-center flex-column gap-4">
                 <div class="d-flex flex-column gap-3 w-100 align-items-center">
                     <p class="mensagem">{{mensagem}}</p>
-                    <input name="username" [(ngModel)]="login.username" placeholder="Usuário" type="text">
-                    <input name="username" [(ngModel)]="login.password "placeholder="Senha" [type]="password">
-                    <button class="show-password" (click)="showPassword()">
+                    <input name="username" [(ngModel)]="login.username" (keydown.enter)="doLogin()" placeholder="Usuário" type="text">
+                    <input name="username" [(ngModel)]="login.password "(keydown.enter)="doLogin()" placeholder="Senha" [type]="password">
+                    <div class="show-password" (click)="showPassword()">
                         <bi aria-hidden="true" name="eye" *ngIf="!show"></bi>
                         <bi aria-hidden="true" name="eye-slash" *ngIf="show"></bi>
-                    </button>
+                    </div>
                 </div>
                 <button type="button" (click)="doLogin()" class="w-50 btn btn-primary">Login</button>
             </form>
