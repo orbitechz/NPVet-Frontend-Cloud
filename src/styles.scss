@@ -73,7 +73,10 @@ app-login{
     display: flex;
 }
 
-html, body { height: 100%; }
+html, body { 
+    height: 100%; 
+    overflow-x: hidden;
+}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
