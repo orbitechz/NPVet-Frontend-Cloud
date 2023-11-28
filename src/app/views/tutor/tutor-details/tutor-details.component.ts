@@ -89,7 +89,7 @@ export class TutorDetailsComponent implements OnInit {
         this.isErro = false;
         this.mensagem = 'Tutor cadastrado com sucesso!';
         this.moveTo();
-        this.router.navigate(["['/web/tutor']", tutor.id]);
+        this.router.navigate(['/web/tutores']);
       },
       error: (error) => {
         console.log(error);

@@ -7,8 +7,8 @@
         </div>
         <div class="d-flex justify-content-between mb-3">
             <h3 class="text-primary font-outfit">{{title}}</h3>
-            <mat-slide-toggle *ngIf="showAtivoFilter" class="w-25 pt-2" name="estadoAtivo" [formControl]="switchEstado" #estadoAtivo
-                (change)="filtrarEstado()" color="primary">
+            <mat-slide-toggle *ngIf="showAtivoFilter" class="w-25 pt-2" name="estadoAtivo" [formControl]="switchEstado"
+                #estadoAtivo (change)="filtrarEstado()" color="primary">
                 <p class="m-0 text-primary switch"> Mostrar apenas ativos </p>
             </mat-slide-toggle>
         </div>
@@ -18,7 +18,7 @@
             <thead class="d-grid container">
                 <tr class="row">
                     <div class="row col p-0">
-                        <th class="col-md-1">Código</th>
+                        <th *ngIf="showId" class="col-md-1">Código</th>
                         <th class="col" *ngFor="let header of headers">{{ header.header }}</th>
                     </div>
                     <div *ngIf="showToggle || showEdit" class="acoes col-md-2">
@@ -29,7 +29,7 @@
             <tbody class="d-grid container">
                 <tr class="row" *ngFor="let entidade of dadosFiltrados">
                     <div class="h-100 col row linha hover" (click)="onDetailsClick(entidade)">
-                        <th class="col-md-1">{{entidade["id"]}}</th>
+                        <th *ngIf="showId" class="col-md-1">{{entidade["id"]}}</th>
                         <td *ngFor="let header of headers" class="col">{{retornarValor(header, entidade)}}</td>
                     </div>
                     <td *ngIf="showToggle || showEdit" class="acoes col-md-2">
@@ -44,7 +44,8 @@
                 </tr>
             </tbody>
         </table>
-        <div *ngIf="dados.length == 0 || dadosFiltrados.length == 0" class="mt-5 text-align-center  alert-nao-encontrado" role="alert">
+        <div *ngIf="dados.length == 0 || dadosFiltrados.length == 0"
+            class="mt-5 text-align-center  alert-nao-encontrado" role="alert">
             Nenhum item encontrado
         </div>
     </div>

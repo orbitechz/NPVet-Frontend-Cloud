@@ -6,7 +6,28 @@
         aria-label="Tutores" [routerLink]="['/web/tutores']" class="icon"><img src="../../../assets/img/tutor-box-menu.png" alt="prancheta tutor"></div>
         <div matTooltip="Consultas"
         aria-label="Consultas" [routerLink]="['/web/consultas']" class="icon"><img src="../../../assets/img/doctors-folder-icon.png" alt="pasta de documentos"></div>
-        <div matTooltip="Animais"
+        <div matTooltip="Usuários"
         aria-label="Usuários" [routerLink]="['/web/usuarios']" class="icon"><img src="../../../assets/img/person-icon.png" alt="icone de pessoa"></div>
+        <div matTooltip="Sair"
+        aria-label="Sair" (click)="logoutModal(modal)" class="icon"><bi class="logout" name="door-open-fill"></bi></div>
     </div>
 </div>
+<ng-template #modal let-modal class="modal-principal">
+    <div class="modal-header w-100 px-5 d-flex justify-content-center">
+        <h3 class="modal-title text-center w-100">Fazer logout</h3>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="body d-flex justify-content-center flex-column align-items-center">
+            <img src="/assets/img/dog-error.png" alt="cachrro dormindo">
+            <div class="aviso pt-5 pb-3 ">
+                <h5 class="text-secondary fw-bold">Deseja mesmo sair?</h5>
+            </div>
+            <div class="buttons d-flex justify-content-around w-50 gap-3">
+                <button (click)="logout()" class="botoes btn btn-danger text-white" type="button">Sair</button>
+                <button type="button" class="botoes btn btn-secondary text-white"
+                    (click)="modal.close('Close click')">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

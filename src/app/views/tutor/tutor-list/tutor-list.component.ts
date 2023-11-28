@@ -1,7 +1,8 @@
 import { Component, Input, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Header } from 'src/app/components/table/header';
 import { Tutor } from 'src/app/models/tutor/tutor';
+import { LoginService } from 'src/app/services/login/login.service';
 import { TutorService } from 'src/app/services/tutor/tutor.service';
 import { environment } from 'src/environments/environment';
 
@@ -18,12 +19,19 @@ export class TutorListComponent {
   tutores: Tutor[] = [];
   service = inject(TutorService);
   router = inject(Router)
-
   data: any[] = [];
 
-
-  constructor() {
+  authService = inject(LoginService)
+  showEdit = false
+  showToggle = false;
+  hasPermission = false
+  role!: string
+  constructor(private route: ActivatedRoute){}
+  ngOnInit(): void {
+    this.showEdit = this.hasPermission = this.authService.hasPermission("SECRETARIA")
+    this.showToggle = this.authService.hasPermission("ADMINISTRADOR")
     this.getAll();
+
   }
   getAll() {
     this.service.getAll().subscribe({
