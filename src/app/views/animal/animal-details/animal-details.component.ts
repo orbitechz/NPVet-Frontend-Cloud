@@ -70,7 +70,7 @@ export class AnimalDetailsComponent implements OnInit {
         this.animal = animais;
         this.mensagem = "Animal cadastrado com sucesso!";
         this.moveTo();
-        this.router.navigate(["['/web/animais']", this.animal.id]);
+        this.router.navigate(["/web/animais"]);
       },
       error: (erro) => {
         console.log(erro.error);
