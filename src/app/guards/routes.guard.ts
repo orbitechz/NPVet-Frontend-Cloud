@@ -18,8 +18,12 @@ export const routesGuard: CanActivateFn = (route, state) => {
     return true;
   } else {
     if (token === null) {
-      router.navigate(['/login']);
-      return true;
+      if(rota==="erro"){
+        return true;
+      }else{
+        router.navigate(['/login']);
+        return true;
+      }
     }else{
       return loginService.hasPermission(role)
     }

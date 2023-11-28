@@ -18,6 +18,7 @@ import { AnimalEditComponent } from './views/animal/animal-edit/animal-edit/anim
 import { routesGuard } from './guards/routes.guard';
 import { LoginComponent } from './core/login/login.component';
 import { Role } from './models/enums/role';
+import { ErrorsComponent } from './core/errors/errors.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -30,6 +31,12 @@ const routes: Routes = [
     data: { role: '*' },
     children: [
       { path: '', redirectTo: 'menu', pathMatch: 'full' },
+      {
+        path: 'erro',
+        component: ErrorsComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
       {
         path: 'menu',
         component: MenuPrincipalComponent,
@@ -138,7 +145,19 @@ const routes: Routes = [
         canActivate: [routesGuard],
         data: { role: 'MEDICO' },
       },
+      // DEIXE ESSA ROTA POR ÚLTIMO, É A ROTA DE ERRO
+      {
+        path: '**',
+        redirectTo: 'erro',
+        pathMatch: 'full',
+      },
     ],
+  },
+  // DEIXE ESSA ROTA POR ÚLTIMO, É A ROTA DE ERRO
+  {
+    path: '**',
+    redirectTo: '/web/erro',
+    pathMatch: 'full',
   },
 ];
 
