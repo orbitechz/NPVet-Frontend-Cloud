@@ -17,7 +17,6 @@ import { LoginService } from '../services/login/login.service';
 export class HttpInterceptorService implements HttpInterceptor {
   router = inject(Router);
   loginService = inject(LoginService);
-  constructor() {}
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -25,12 +24,13 @@ export class HttpInterceptorService implements HttpInterceptor {
     let token = localStorage.getItem('token');
     if (token) {
       request = request.clone({
-        setHeaders: { Authorization: 'Bearer ' + token },
+        setHeaders: { Authorization: 'Bearer ' + token, "Access-Control-Allow-Origin": "*" },
       });
     }
     return next.handle(request).pipe(catchError((x) => this.errorHandler(x)));
   }
   private errorHandler(err: HttpErrorResponse): Observable<any> {
+    console.log(err)
     if (err.status === 401) {
       this.loginService.logout()
       this.router.navigateByUrl(`/login`);

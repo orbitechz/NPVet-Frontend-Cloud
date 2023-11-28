@@ -46,7 +46,7 @@ import { ConsultaAnamneseDetailsComponent } from './views/anamnese/consulta-anam
 import { AnamneseEditComponent } from './views/anamnese/anamnese-edit/anamnese-edit.component';
 import { MenuPrincipalComponent } from './views/menu-principal/menu-principal.component';
 import { AnimalEditComponent } from './views/animal/animal-edit/animal-edit/animal-edit.component';
-import { HttpInterceptorService } from './interceptors/http-interceptor.service';
+import { HttpInterceptorService, httpInterceptorProviders } from './interceptors/http-interceptor.service';
 import { LoginComponent } from './core/login/login.component';
 
 @NgModule({
@@ -101,7 +101,7 @@ import { LoginComponent } from './core/login/login.component';
     MatTooltipModule,
     // MatSelectFilterModule
   ],
-  providers: [UsuarioService, HttpInterceptorService],
+  providers: [UsuarioService, httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

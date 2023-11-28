@@ -20,7 +20,8 @@ import { LoginComponent } from './core/login/login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, canActivate: [routesGuard] },
+  { path: 'login', component: LoginComponent},
+  { path: 'logout', component: LoginComponent},
   {
     path: 'web',
     component: IndexComponent,
