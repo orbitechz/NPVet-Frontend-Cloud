@@ -1,6 +1,6 @@
 <div  [ngClass]="
 {
-    'blocked': !hasPermission
+    'blocked': isBlocked
 }
 " class="register d-flex align-items-center gap-2" (click)="register()">
     <bi name="plus-circle-fill"></bi>

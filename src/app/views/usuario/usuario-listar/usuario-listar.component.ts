@@ -11,11 +11,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./usuario-listar.component.scss'],
 })
 export class UsuarioListarComponent implements OnInit {
-  showEdit = false
-  showToggle = false;
   isErro!: boolean;
   mensagem!: string;
+  
   authService = inject(LoginService)
+  showEdit = false
+  showToggle = false;
   hasPermission = false
   role!: string
   constructor(private route: ActivatedRoute){}
