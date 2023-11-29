@@ -82,20 +82,20 @@
                         </div>
                     </div>
                     <div class="px-5 gap-4 d-flex flex-row justify-content-center py-4">
-                        <button *ngIf="!disabled" type="button" class="color-white btn font-outfit btn-primary"
-                            (click)="confirmar()">Confirmar</button>
                         <button [ngClass]="
                         {
                             'blocked': !hasPermission
                         }
-                        " *ngIf="disabled" type="button" class="color-white btn font-outfit  btn-primary"
+                        " type="button" class="color-white btn font-outfit  btn-primary"
                             (click)="anamnese()">Anamnese</button>
                         <button [ngClass]="
                         {
                             'blocked': !hasPermission
                         }
-                        " *ngIf="disabled" type="button" class="color-white btn font-outfit  btn-primary"
+                        " type="button" class="color-white btn font-outfit  btn-primary"
                             (click)="exameFisico()">Adicionar Exame Físico</button>
+                        <button *ngIf="!disabled" type="button" class="color-white btn font-outfit btn-success"
+                            (click)="confirmar()">Confirmar</button>
 
                         <!-- <button *ngIf="modoEditar" type="submit" class="btn btn-edit"
                             (click)="editar()">Editar</button>
