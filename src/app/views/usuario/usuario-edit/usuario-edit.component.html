@@ -9,7 +9,7 @@
                         <div class="form-group">
                             <label for="nome" class="mb-1">Nome<span style="color:red">*</span></label>
                             <input type="text" id="nome" class="form-control" name="nome" [(ngModel)]="usuario.nome"
-                            [disabled]="!editMode" />
+                                [disabled]="!editMode" />
                         </div>
                     </div>
                     <!-- CPF -->
@@ -17,32 +17,25 @@
                         <div class="form-group">
                             <label for="cpf" class="mb-1">CPF<span style="color:red">*</span></label>
                             <input type="text" id="cpf" class="form-control" name="cpf" [(ngModel)]="usuario.cpf"
-                                placeholder="000.000.000-00" maxlength="14" mask="000.000.000-00" [disabled]="!editMode" />
+                                placeholder="000.000.000-00" maxlength="14" mask="000.000.000-00"
+                                [disabled]="!editMode" />
                         </div>
                     </div>
                     <!-- Tipo do Usuário -->
                     <div class="col-md-4">
                         <div class="form-group">
-                          <label for="tipoUsuario" class="mb-1">Tipo do Usuário<span style="color:red">*</span></label>
-                          <select
-                            id="tipoUsuario"
-                            class="form-select"
-                            name="tipoUsuario"
-                            [(ngModel)]="usuario.tipoUsuario"
-                            [disabled]="!editMode"
-                          >
-                            <option [ngValue]="null" disabled selected>
-                              Selecione um tipo
-                            </option>
-                            <option
-                              *ngFor="let tipo of tipoUsuarioEnum | keyvalue"
-                              [ngValue]="tipo.key"
-                            >
-                              {{ tipo.value }}
-                            </option>
-                          </select>
+                            <label for="role" class="mb-1">Tipo do Usuário<span style="color:red">*</span></label>
+                            <select id="role" class="form-select" name="role" [(ngModel)]="usuario.role"
+                                [disabled]="!editMode">
+                                <option [ngValue]="null" disabled selected>
+                                    Selecione um tipo
+                                </option>
+                                <option *ngFor="let tipo of roleEnum | keyvalue" [ngValue]="tipo.key">
+                                    {{ tipo.value }}
+                                </option>
+                            </select>
                         </div>
-                      </div>
+                    </div>
                 </div>
                 <div class="row mb-3">
                     <!-- Username -->
@@ -74,8 +67,8 @@
             </form>
         </div>
     </div>
-        <div class="w-75 h-100 p-5 pb-0" *ngIf="usuario.tipoUsuario === 'MEDICO'">
-            <app-table [title]="'Historico de Consultas'" [headers]="callHeaders()" [apiUrl]="apiUrlPath()"
-                [editPath]="'/'" [detailsPath]="'/'" [entidade]="'Consulta'" [showToggle]="true"></app-table>
-        </div>
+    <div class="w-75 h-100 p-5 pb-0" *ngIf="usuario.role === 'MEDICO'">
+        <app-table [title]="'Historico de Consultas'" [headers]="callHeaders()" [apiUrl]="apiUrlPath()" [editPath]="'/'"
+            [detailsPath]="'/'" [entidade]="'Consulta'" [showToggle]="true"></app-table>
+    </div>
 </div>

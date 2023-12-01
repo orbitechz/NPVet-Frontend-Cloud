@@ -5,6 +5,7 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Header } from 'src/app/components/table/header';
 import { environment } from 'src/environments/environment';
+import { LoginService } from 'src/app/services/login/login.service';
 
 
 @Component({
@@ -18,11 +19,16 @@ export class AnimalListComponent {
   mensagem!: string
   animais: Animal[] = [];
   service = inject(AnimalService);
-
   data: any[] = [];
-
-
-  constructor() {
+  authService = inject(LoginService)
+  showEdit = false
+  showToggle = false;
+  hasPermission = false
+  role!: string
+  constructor(private route: ActivatedRoute){}
+  ngOnInit(): void {
+    this.showEdit = this.hasPermission = this.authService.hasPermission("SECRETARIA")
+    this.showToggle = this.authService.hasPermission("ADMINISTRADOR")
     this.getAll();
   }
   getAll() {

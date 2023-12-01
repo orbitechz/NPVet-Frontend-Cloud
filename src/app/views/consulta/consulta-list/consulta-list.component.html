@@ -1,11 +1,11 @@
 <div class="w-100 h-100 d-flex flex-column justify-content-center align-items-center mt-5">
     <div class="w-75 h-100">
-        <app-register-btn [text]="'Marcar nova Consulta'" (clickEvent)=modal(consulta)></app-register-btn>
+        <app-register-btn [text]="'Marcar nova Consulta'" (clickEvent)=modal(consulta) [isBlocked]="!hasPermission"></app-register-btn>
         <app-mensagem class="mt-3" [isErro]="isErro" [mensagem]="mensagem"></app-mensagem>
         <div class="d-flex justify-content-between mb-3">
         </div>
         <app-table [isModal]="true" [title]="'Consultas'" [headers]="callHeaders()" [apiUrl]="apiUrlPath()"
-            [editPath]="'consulta/update'" [entidade]="'Consulta'" [showToggle]="true" (detailsClick)="modal(consulta, $event)"></app-table>
+            [editPath]="'consulta/update'" [entidade]="'Consulta'" [showToggle]="showToggle" [showEdit]="showEdit" (detailsClick)="modal(consulta, $event)"></app-table>
     </div>
 </div>
 

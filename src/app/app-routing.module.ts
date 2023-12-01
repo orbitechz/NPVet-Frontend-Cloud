@@ -15,34 +15,149 @@ import { ExameEditComponent } from './views/exame-fisico/exame-edit/exame-edit/e
 import { AnamneseEditComponent } from './views/anamnese/anamnese-edit/anamnese-edit.component';
 import { MenuPrincipalComponent } from './views/menu-principal/menu-principal.component';
 import { AnimalEditComponent } from './views/animal/animal-edit/animal-edit/animal-edit.component';
- 
+import { routesGuard } from './guards/routes.guard';
+import { LoginComponent } from './core/login/login.component';
+import { Role } from './models/enums/role';
+import { ErrorsComponent } from './core/errors/errors.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'web', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, canActivate: [routesGuard] },
+  { path: 'logout', component: LoginComponent, canActivate: [routesGuard] },
   {
     path: 'web',
     component: IndexComponent,
+    canActivate: [routesGuard],
+    data: { role: '*' },
     children: [
-      { path: '', redirectTo: 'menu', pathMatch: 'full'  },
-      { path: 'menu', component: MenuPrincipalComponent },
-      { path: 'tutores', component: TutorListComponent },
-      { path: 'tutor/register', component: TutorDetailsComponent },
-      { path: 'tutor/edit/:id', component: TutorDetailsComponent },
-      { path: 'tutor/:id', component: TutorDetailsComponent },
-      { path: 'usuarios', component: UsuarioListarComponent },
-      { path: 'usuario/register', component: UsuarioDetailsComponent },
-      { path: 'usuario/edit/:id', component: UsuarioEditComponent },
-      { path: 'animais', component: AnimalListComponent },
-      { path: 'animal/register', component: AnimalDetailsComponent },
-      { path: 'animal/edit/:id', component: AnimalEditComponent },
-      { path: 'animal/:id', component: AnimalDetailsComponent},
-      { path: 'consultas', component: ConsultaListComponent },
-      { path: 'consulta/exame/register', component: ExameDetailsComponent },
-      { path: 'consulta/exame/edit/:id', component: ExameEditComponent },
-      { path: 'anamnese/register/:id', component: ConsultaAnamneseDetailsComponent},
-      { path: 'anamnese/edit/:id', component: AnamneseEditComponent},
-      { path: 'exame/register/:id', component: ExameDetailsComponent },
+      { path: '', redirectTo: 'menu', pathMatch: 'full' },
+      {
+        path: 'erro',
+        component: ErrorsComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
+      {
+        path: 'menu',
+        component: MenuPrincipalComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
+      {
+        path: 'tutores',
+        component: TutorListComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
+      {
+        path: 'tutor/register',
+        component: TutorDetailsComponent,
+        canActivate: [routesGuard],
+        data: { role: 'SECRETARIA' },
+      },
+      {
+        path: 'tutor/edit/:id',
+        component: TutorDetailsComponent,
+        canActivate: [routesGuard],
+        data: { role: 'SECRETARIA' },
+      },
+      {
+        path: 'tutor/:id',
+        component: TutorDetailsComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
+      {
+        path: 'usuarios',
+        component: UsuarioListarComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
+      {
+        path: 'usuario/register',
+        component: UsuarioDetailsComponent,
+        canActivate: [routesGuard],
+        data: { role: 'ADMINISTRADOR' },
+      },
+      {
+        path: 'usuario/edit/:id',
+        component: UsuarioEditComponent,
+        canActivate: [routesGuard],
+        data: { role: 'ADMINISTRADOR' },
+      },
+      {
+        path: 'animais',
+        component: AnimalListComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
+      {
+        path: 'animal/register',
+        component: AnimalDetailsComponent,
+        canActivate: [routesGuard],
+        data: { role: 'SECRETARIA' },
+      },
+      {
+        path: 'animal/edit/:id',
+        component: AnimalEditComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
+      {
+        path: 'animal/:id',
+        component: AnimalDetailsComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
+      {
+        path: 'consultas',
+        component: ConsultaListComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
+      {
+        path: 'consulta/exame/register',
+        component: ExameDetailsComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
+      {
+        path: 'consulta/exame/edit/:id',
+        component: ExameEditComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
+      {
+        path: 'anamnese/register/:id',
+        component: ConsultaAnamneseDetailsComponent,
+        canActivate: [routesGuard],
+        data: { role: 'MEDICO' },
+      },
+      {
+        path: 'anamnese/edit/:id',
+        component: AnamneseEditComponent,
+        canActivate: [routesGuard],
+        data: { role: 'MEDICO' },
+      },
+      {
+        path: 'exame/register/:id',
+        component: ExameDetailsComponent,
+        canActivate: [routesGuard],
+        data: { role: 'MEDICO' },
+      },
+      // DEIXE ESSA ROTA POR ÚLTIMO, É A ROTA DE ERRO
+      {
+        path: '**',
+        redirectTo: 'erro',
+        pathMatch: 'full',
+      },
     ],
+  },
+  // DEIXE ESSA ROTA POR ÚLTIMO, É A ROTA DE ERRO
+  {
+    path: '**',
+    redirectTo: '/web/erro',
+    pathMatch: 'full',
   },
 ];
 

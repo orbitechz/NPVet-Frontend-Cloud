@@ -1,11 +1,11 @@
 <div class="w-100 h-100 d-flex flex-column justify-content-center align-items-center mt-5">
   <div class="w-75 h-100">
-    <app-register-btn [text]="'Cadastrar novo Animal'" [registerLink]="'web/animal/register'"></app-register-btn>
+    <app-register-btn [text]="'Cadastrar novo Animal'" [registerLink]="'web/animal/register'" [isBlocked]="!hasPermission"></app-register-btn>
     <app-mensagem [isErro]="isErro" [mensagem]="mensagem"></app-mensagem>
     <div class="d-flex justify-content-between mb-3">
     </div>
     <app-table [title]="'Animais Cadastrados'" [headers]="callHeaders()" [apiUrl]="apiUrlPath()"
       [editPath]="'web/animal/edit'" [detailsPath]="'/web/animal'" [entidade]="'Animal'"
-      [showToggle]="true"></app-table>
+      [showToggle]="showToggle" [showEdit]="showEdit"></app-table>
   </div>
 </div>
