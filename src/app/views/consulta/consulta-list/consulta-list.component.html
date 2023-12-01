@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-between mb-3">
         </div>
         <app-table [isModal]="true" [title]="'Consultas'" [headers]="callHeaders()" [apiUrl]="apiUrlPath()"
-            [editPath]="'consulta/update'" [entidade]="'Consulta'" [showToggle]="showToggle" [showEdit]="showEdit" (detailsClick)="modal(consulta, $event)"></app-table>
+            [editPath]="'consulta/update'" [entidade]="'Consulta'" [showToggle]="showToggle" [showEdit]="false" (detailsClick)="modal(consulta, $event)"></app-table>
     </div>
 </div>
 

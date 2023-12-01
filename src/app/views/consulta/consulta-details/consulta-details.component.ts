@@ -36,7 +36,7 @@ export class ConsultaDetailsComponent implements OnInit {
     if(this.consultaSelecionada){
       this.hasPermission = this.authService.hasPermission("MEDICO")
       this.consulta = this.consultaSelecionada
-      this.disabled = true
+      // this.disabled = true
     }else{
       this.consulta.animal = new Animal();
       this.consulta.veterinario = new Usuario();
