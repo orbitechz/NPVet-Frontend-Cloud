@@ -74,18 +74,18 @@
         <p class="fw-bold mb-2">Status da Consulta :</p>
         <div class="d-flex gap-2">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="allStatus" [checked]="allStatusSelected"
-              (change)="onStatusChange('allStatus')" />
+            <input class="form-check-input" type="checkbox" [name]="allStatusSelected" [checked]="allStatusSelected" (change)="onAllStatusChange()" />
             <label class="form-check-label"> Todos os Status </label>
           </div>
+          
           <div class="form-check" *ngFor="let status of statuses">
-            <input class="form-check-input" type="checkbox" [name]="status" [checked]="
-                !allStatusSelected && selectedStatuses.includes(status)
-              " (change)="onStatusChange(status)" />
+            <input class="form-check-input" type="checkbox" [name]="status" [checked]="!allStatusSelected && selectedStatus === status" (change)="onStatusChange(status)" />
             <label class="form-check-label" [for]="status">{{ status }}</label>
           </div>
+          
         </div>
       </div>
+      
 
       <!-- Incluir Anamneses e Exames -->
       <div class="incluir-filters mt-2 d-flex flex-column gap-2">

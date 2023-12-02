@@ -15,8 +15,11 @@ export class ConsultaService {
 
   constructor() {}
 
-  getFilteredConsultas(startdate: string, endDate: string, animalId: Number, status?: Status[]): Observable<Consulta[]> {
-    let url = `${this.baseURL}/report?startDate=${startdate}&endDate=${endDate}&animalId=${animalId}`;
+  getFilteredConsultas(startdate: string, endDate: string, animalId?: number, status?: Status): Observable<Consulta[]> {
+    let url = `${this.baseURL}/report?startDate=${startdate}&endDate=${endDate}`;
+    if (animalId) {
+      url += `&animalId=${animalId}`;
+    }
     if (status) {
       url += `&status=${status}`;
     }
