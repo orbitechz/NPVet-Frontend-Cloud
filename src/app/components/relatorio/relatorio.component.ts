@@ -37,7 +37,7 @@ export class RelatorioComponent {
   isDropdownOpen = false;
   selectedStartDate: string = '';
   selectedEndDate: string = '';
-  selectedStatuses: string[] = [];
+  selectedStatuses: Status[] = [];
   selectedIncluirType: string = 'AnamnesesExames';
   allStatusSelected: boolean = true;
 
@@ -65,10 +65,10 @@ export class RelatorioComponent {
         this.selectedStatuses = [];
       }
     } else {
-      const index = this.selectedStatuses.indexOf(status);
+      const index = this.selectedStatuses.indexOf(status as Status);
 
       if (index === -1) {
-        this.selectedStatuses.push(status);
+        this.selectedStatuses.push(status as Status);
       } else {
         this.selectedStatuses.splice(index, 1);
       }
@@ -83,19 +83,18 @@ export class RelatorioComponent {
   }
 
   // Log selected values when "Imprimir Relatorio" button is clicked
-  imprimirRelatorio() {
-    console.log('Selected Start Date:', this.selectedStartDate);
-    console.log('Selected End Date:', this.selectedEndDate);
-    console.log('Selected Animal:', this.consulta.animal);
+  imprimirRelatorios() {
+    this.service.getFilteredConsultas(this.selectedStartDate,
+      this.selectedEndDate,
+      this.consulta.animal.id).subscribe({
+        next: (consultas) => {
+          console.log(consultas);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
 
-    if (this.allStatusSelected) {
-      console.log('All Statuses selected');
-    } else {
-      console.log('Selected Statuses:', this.selectedStatuses);
-    }
-
-    console.log('Selected Incluir Type:', this.selectedIncluirType);
-    // Perform further actions as needed
   }
 
   // Handle the change in the radio button for "Imprimir Relatório de Consultas por Paciente"
