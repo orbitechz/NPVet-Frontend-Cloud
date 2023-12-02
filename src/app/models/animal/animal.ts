@@ -3,6 +3,7 @@ import { Anamnese } from "../anamnese/anamnese";
 import { Consulta } from "../consulta/consulta";
 import { Sexo } from "../enums/sexo";
 import { Tutor } from "../tutor/tutor";
+import { Vacina } from "../vacina/vacina";
 
 export class Animal extends AbstractEntity{
     nome!: string;
@@ -16,12 +17,12 @@ export class Animal extends AbstractEntity{
     tutorId!: Tutor;
     anamneses!: Anamnese[];
     consulta!: Consulta[];
-    /*vacinas!: Vacina[];*/
+    vacinas!: Vacina[];
 
     constructor(){
         super();
         this.anamneses = [];
         this.consulta = [];
-        /*this.vacinas = [];*/
+        this.vacinas = [];
     }
 }

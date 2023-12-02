@@ -48,6 +48,7 @@ import { MenuPrincipalComponent } from './views/menu-principal/menu-principal.co
 import { AnimalEditComponent } from './views/animal/animal-edit/animal-edit/animal-edit.component';
 import { HttpInterceptorService, httpInterceptorProviders } from './interceptors/http-interceptor.service';
 import { LoginComponent } from './core/login/login.component';
+import { VacinaDetailsComponent } from './views/vacina/vacina-details/vacina-details.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { LoginComponent } from './core/login/login.component';
     AnamneseEditComponent,
     MenuPrincipalComponent,
     AnimalEditComponent,
+    VacinaDetailsComponent,
   ],
   imports: [
     BrowserModule,

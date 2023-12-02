@@ -54,10 +54,7 @@ export class AnimalDetailsComponent implements OnInit {
     this.disabled = true;
     this.detailsMode = true;
     console.log("está desabilitado.");
-    console.log(this.detailsMode)
-
-    
-  
+    console.log(this.detailsMode);
   }
   
   }
@@ -120,5 +117,9 @@ export class AnimalDetailsComponent implements OnInit {
 
   getUrlEspecifica(){
     return `${environment.apiUrl}/tutor/all/ativos`
+  }
+
+  confirmaVacina(){
+    this.modalService.dismissAll;
   }
 }

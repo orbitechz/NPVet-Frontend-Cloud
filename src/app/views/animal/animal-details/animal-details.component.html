@@ -79,7 +79,33 @@
       <input *ngIf="!disabled" type="email" class="form-control" id="inputEmail4" (click)="open(content)">
       <h1 *ngIf="disabled" class="form-select">{{animal.tutorId.nome}}</h1>
     </div>
-    <!--        
+    <div class="container w-100 row" *ngIf="disabled">
+      <div class="col-md-6 text-left">
+        <p class="title text-left m-0">Vacinas</p>
+        <button (click)="open(vacina)">Adicionar vacina</button>
+      </div>
+      <table>
+        <thead>
+          <tr class="table-vacina">
+            <th scope="col">#</th>
+            <th scope="col">Vacina aplicada</th>
+            <th scope="col">Data de aplicação</th>
+            <th scope="col">Próxima dose</th>
+            <th scope="col">Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vacinas in animal.vacinas">
+            <th scope="row">{{vacinas.id}}</th>
+            <td>{{vacinas.nome}}</td>
+            <!-- <td>{{vacina.}}</td>
+            <td>20-11-2024</td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+  <!--        
     <div class=" container w-70">
       <div class="col-md-6 text-left">
         <p class="title text-left m-0">Vacinas</p>
@@ -88,12 +114,11 @@
       
     </div> -->
 
-    <div class="col-12 d-flex justify-content-center py-5 ">
-      <button *ngIf="!disabled" type="submit" class="btn btn-primary btn-end" (click)="salvar()">Finalizar</button>
-      <button *ngIf="disabled" type="submit" class="btn btn-primary btn-end" (click)="sair()">Sair</button>
-    </div>
+  <div class="col-12 d-flex justify-content-center py-5 ">
+    <button *ngIf="!disabled" type="submit" class="btn btn-primary btn-end" (click)="salvar()">Finalizar</button>
+    <button *ngIf="disabled" type="submit" class="btn btn-primary btn-end" (click)="sair()">Sair</button>
+  </div>
 
-  </form>
 </div>
 
 
@@ -102,6 +127,16 @@
     <app-table [title]="'Tutores'" [headers]="callHeadersTutor()" [urlEspecifica]="getUrlEspecifica()"
       [entidade]="'Tutor'" [showToggle]="false" [showEdit]="false" [isModal]="true" [showAtivoFilter]="false"
       (detailsClick)="selecionarTutor($event)"></app-table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary font-outfit" (click)="c('Close click')">Fechar</button>
+  </div>
+</ng-template>
+
+<ng-template #vacina let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <app-vacina-details [chamandoAnimal]="animal" (vacina) = "confirmaVacina()"></app-vacina-details>
+    
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary font-outfit" (click)="c('Close click')">Fechar</button>
