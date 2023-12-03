@@ -88,10 +88,17 @@ export class ConsultaDetailsComponent implements OnInit {
     return 'Confirmar';
   }
 
-  anamnese(){
-    this.modalService.dismissAll()
-    this.router.navigate(['/web/anamnese/register', this.consulta.id])
+  anamnese() {
+    this.modalService.dismissAll();
+    console.log(this.consulta);
+  
+    if (this.consulta.anamnese && this.consulta.anamnese.id) {
+      this.router.navigate(['/web/anamnese/edit', this.consulta.anamnese.id]);
+    } else {
+      this.router.navigate(['/web/anamnese/register', this.consulta.id]);
+    }
   }
+  
 
   exameFisico(){
     this.modalService.dismissAll()

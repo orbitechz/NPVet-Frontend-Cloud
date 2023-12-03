@@ -85,36 +85,6 @@
           
         </div>
       </div>
-      
-
-      <!-- Incluir Anamneses e Exames -->
-      <div class="incluir-filters mt-2 d-flex flex-column gap-2">
-        <p class="fw-bold mb-2">Incluir:</p>
-
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="incluirType" id="incluirAnamnesesExames"
-            [checked]="selectedIncluirType === 'AnamnesesExames'" (change)="onIncluirTypeChange('AnamnesesExames')" />
-          <label class="form-check-label" for="incluirAnamnesesExames">
-            Anamneses e Exames
-          </label>
-        </div>
-
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="incluirType" id="incluirAnamneses"
-            [checked]="selectedIncluirType === 'Anamneses'" (change)="onIncluirTypeChange('Anamneses')" />
-          <label class="form-check-label" for="incluirAnamneses">
-            Somente Anamneses
-          </label>
-        </div>
-
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="incluirType" id="incluirExames"
-            [checked]="selectedIncluirType === 'Exames'" (change)="onIncluirTypeChange('Exames')" />
-          <label class="form-check-label" for="incluirExames">
-            Somente Exames
-          </label>
-        </div>
-      </div>
 
     </div>
 

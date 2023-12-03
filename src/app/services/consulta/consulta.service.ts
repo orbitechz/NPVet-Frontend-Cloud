@@ -15,16 +15,19 @@ export class ConsultaService {
 
   constructor() {}
 
-  getFilteredConsultas(startdate: string, endDate: string, animalId?: number, status?: Status): Observable<Consulta[]> {
+  getFilteredConsultas(startdate: string, endDate: string, animalId?: number | undefined, status?: Status | undefined): Observable<Consulta[]> {
     let url = `${this.baseURL}/report?startDate=${startdate}&endDate=${endDate}`;
-    if (animalId) {
+
+      if(animalId !== null  && animalId !== undefined)
       url += `&animalId=${animalId}`;
-    }
-    if (status) {
+ 
+    if (status !== undefined) {
+      if(status !== null)
       url += `&status=${status}`;
     }
     return this.http.get<Consulta[]>(url);
   }
+  
 
   create(consulta: Consulta): Observable<Consulta> {
     return this.http.post<Consulta>(`${this.baseURL}/post`, consulta)
