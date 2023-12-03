@@ -31,6 +31,7 @@ export class TableComponent implements OnInit {
   @Input() entidade: string = '';
   @Input() title: string = 'Tabela';
   @Input() softDelete: boolean = true;
+  @Input() showId: boolean = true;
   @Input() showToggle: boolean = true;
   @Input() showEdit: boolean = true;
   @Input() showAtivoFilter: boolean = true;

@@ -7,6 +7,7 @@ import { Consulta } from 'src/app/models/consulta/consulta';
 import { Status } from 'src/app/models/enums/status';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { ConsultaService } from 'src/app/services/consulta/consulta.service';
+import { LoginService } from 'src/app/services/login/login.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -27,12 +28,15 @@ export class ConsultaDetailsComponent implements OnInit {
   modalRef!: NgbModalRef;
   service = inject(ConsultaService);
   router = inject(Router)
+  authService = inject(LoginService)
+  hasPermission = false
   constructor() {
   }
   ngOnInit(): void {
     if(this.consultaSelecionada){
+      this.hasPermission = this.authService.hasPermission("MEDICO")
       this.consulta = this.consultaSelecionada
-      this.disabled = true
+      // this.disabled = true
     }else{
       this.consulta.animal = new Animal();
       this.consulta.veterinario = new Usuario();
@@ -88,21 +92,30 @@ export class ConsultaDetailsComponent implements OnInit {
     return 'Confirmar';
   }
 
+
   anamnese() {
-    this.modalService.dismissAll();
-    console.log(this.consulta);
+   
+
+  anamnese(){
+    if(this.hasPermission){
+      this.modalService.dismissAll();
   
     if (this.consulta.anamnese && this.consulta.anamnese.id) {
       this.router.navigate(['/web/anamnese/edit', this.consulta.anamnese.id]);
     } else {
       this.router.navigate(['/web/anamnese/register', this.consulta.id]);
+    
+    }
+
     }
   }
   
 
   exameFisico(){
-    this.modalService.dismissAll()
-    this.router.navigate(['/web/exame/register', this.consulta.id])
+    if(this.hasPermission){
+      this.modalService.dismissAll()
+      this.router.navigate(['/web/exame/register', this.consulta.id])
+    }
   }
   getAnimalUrl(){
     return `${environment.apiUrl}/animal`

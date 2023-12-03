@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { provideNgxMask } from 'ngx-mask';
 import { Header } from 'src/app/components/table/header';
-import { TipoUsuario } from 'src/app/models/enums/tipo-usuario';
+import { Role } from 'src/app/models/enums/role';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { ConsultaService } from 'src/app/services/consulta/consulta.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
@@ -16,19 +16,21 @@ import { environment } from 'src/environments/environment';
 })
 export class UsuarioEditComponent implements OnInit {
   usuario = new Usuario();
-  tipoUsuarioEnum = TipoUsuario;
+  roleEnum = Role;
   editMode = false;
   data: any[] = [];
   hide = true;
-  isErro!: boolean
-  mensagem!: string
+  isErro!: boolean;
+  mensagem!: string;
   showTable: boolean = true;
   usuarioForm: any;
 
-  constructor(private uService: UsuarioService,
-     private router: Router,
-     private route: ActivatedRoute,
-     private cService: ConsultaService) {}
+  constructor(
+    private uService: UsuarioService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private cService: ConsultaService
+  ) {}
 
   ngOnInit(): void {
     this.fetchUsuario();
@@ -36,7 +38,7 @@ export class UsuarioEditComponent implements OnInit {
   }
 
   fetchConsultas() {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const id = +params['id'];
       this.cService.getConsultasByVeterinarioId(id).subscribe({
         next: (c) => {
@@ -50,7 +52,7 @@ export class UsuarioEditComponent implements OnInit {
   }
 
   fetchUsuario() {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const id = +params['id'];
       this.uService.getById(id).subscribe({
         next: (u) => {
@@ -80,22 +82,21 @@ export class UsuarioEditComponent implements OnInit {
   // Edit Mode Logic
   editarUsuario() {
     this.editMode = true;
-
   }
   saveEdits() {
-    this.uService.update(this.usuario.id,this.usuario).subscribe({
+    this.uService.update(this.usuario.id, this.usuario).subscribe({
       next: (u) => {
         this.usuario = u;
         this.editMode = false;
-        this.isErro = false
-        this.mensagem = "Usuário atualizado com sucesso!"
+        this.isErro = false;
+        this.mensagem = 'Usuário atualizado com sucesso!';
         this.router.navigate(['web/usuarios']);
       },
       error: (err) => {
         console.log(err);
-        this.isErro = true
-        this.mensagem = "Erro ao atualizar usuário!"
-        if(err.status == 400){
+        this.isErro = true;
+        this.mensagem = 'Erro ao atualizar usuário!';
+        if (err.status == 400) {
           this.data = [];
         }
       },

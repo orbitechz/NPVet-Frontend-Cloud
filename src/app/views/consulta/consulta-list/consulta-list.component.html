@@ -1,12 +1,11 @@
 <div class="w-100 h-100 d-flex flex-column justify-content-start align-items-center mt-5">
     <div class="w-75 d-flex flex-column justify-content-start ">
-        <app-register-btn [text]="'Marcar nova Consulta'" (clickEvent)=modal(consulta)></app-register-btn>
+        <app-register-btn [text]="'Marcar nova Consulta'" (clickEvent)=modal(consulta) [isBlocked]="!hasPermission"></app-register-btn>
         <app-mensagem class="mt-3" [isErro]="isErro" [mensagem]="mensagem"></app-mensagem>
         <div class="d-flex justify-content-between mb-3">
         </div>
         <app-table [isModal]="true" [title]="'Consultas'" [headers]="callHeaders()" [apiUrl]="apiUrlPath()"
-            [editPath]="'consulta/update'" [entidade]="'Consulta'" [showToggle]="true" (detailsClick)="modal(consulta, $event)"></app-table>
-         <button type="button" class="color-white btn font-outfit btn-primary align-self-end"
+[editPath]="'consulta/update'" [entidade]="'Consulta'" [showToggle]="showToggle" [showEdit]="false" (detailsClick)="modal(consulta, $event)"></app-table>         <button type="button" class="color-white btn font-outfit btn-primary align-self-end"
             (click)="abrirModal(relatorios)">Impremir Relatorio</button>  
     </div>
 </div>

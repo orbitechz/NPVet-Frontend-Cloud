@@ -1,8 +1,8 @@
 <div class="w-100 h-100 d-flex flex-column justify-content-center align-items-center mt-5">
     <div class="d-flex flex-column w-75 h-100 gap-3">
-        <app-register-btn [text]="'Cadastrar novo Usuário'" [registerLink]="'web/usuario/register'" class="align-self-start"></app-register-btn>
+        <app-register-btn [isBlocked]="!hasPermission" [text]="'Cadastrar novo Usuário'" [registerLink]="'web/usuario/register'" class="align-self-start"></app-register-btn>
         <app-mensagem [isErro]="isErro" [mensagem]="mensagem" class="w-75"></app-mensagem>
         <app-table [title]="'Usuários Cadastrados'" [headers]="callHeaders()" [apiUrl]="apiUrlPath()"
-            [editPath]="'web/usuario/edit'" [detailsPath]="'web/usuario/edit'" [entidade]="'Usuario'" [showToggle]="true"></app-table>
+            [editPath]="'web/usuario/edit'" [showId]="false" [detailsPath]="'web/usuario/edit'" [entidade]="'Usuario'" [showToggle]="showToggle" [showEdit]="showEdit"></app-table>
     </div>
 </div>

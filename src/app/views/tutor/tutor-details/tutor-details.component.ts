@@ -5,7 +5,7 @@ import { EMPTY, catchError } from 'rxjs';
 import { Header } from 'src/app/components/table/header';
 import { Contato } from 'src/app/models/contato/contato';
 import { Endereco, EnderecoInterface } from 'src/app/models/endereco/endereco';
-
+import { provideNgxMask } from 'ngx-mask';
 import { Genero } from 'src/app/models/enums/genero';
 import { Tutor } from 'src/app/models/tutor/tutor';
 import { AnimalService } from 'src/app/services/animal/animal.service';
@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
   selector: 'app-tutor-details',
   templateUrl: './tutor-details.component.html',
   styleUrls: ['./tutor-details.component.scss'],
+  providers: [provideNgxMask()]
 })
 export class TutorDetailsComponent implements OnInit {
   tutor = new Tutor();
@@ -89,7 +90,7 @@ export class TutorDetailsComponent implements OnInit {
         this.isErro = false;
         this.mensagem = 'Tutor cadastrado com sucesso!';
         this.moveTo();
-        this.router.navigate(["['/web/tutor']", tutor.id]);
+        this.router.navigate(['/web/tutores']);
       },
       error: (error) => {
         console.log(error);

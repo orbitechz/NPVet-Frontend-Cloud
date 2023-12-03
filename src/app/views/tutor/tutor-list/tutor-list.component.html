@@ -1,8 +1,8 @@
 <div class="w-100 h-100 d-flex flex-column justify-content-center align-items-center mt-5">
     <div class="d-flex flex-column w-75 h-100 gap-3">
-        <app-register-btn [text]="'Cadastrar novo Tutor'" [registerLink]="'web/tutor/register'"></app-register-btn>
+        <app-register-btn [text]="'Cadastrar novo Tutor'" [registerLink]="'web/tutor/register'" [isBlocked]="!hasPermission"></app-register-btn>
         <app-mensagem [isErro]="isErro" [mensagem]="mensagem"></app-mensagem>
         <app-table [title]="'Tutores Cadastrados'" [headers]="callHeaders()" [apiUrl]="apiUrlPath()" [editPath]="'web/tutor/edit'" [detailsPath]="'web/tutor'"
-            [entidade]="'Tutor'" [showToggle]="true"></app-table>
+            [entidade]="'Tutor'" [showToggle]="showToggle" [showEdit]="showEdit"></app-table>
     </div>
 </div>

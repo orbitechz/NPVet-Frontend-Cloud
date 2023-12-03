@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MenuComponent } from './core/menu/menu.component';
-import { LoginComponent } from './core/login/login.component';
 import { ErrorsComponent } from './core/errors/errors.component';
 import { TutorListComponent } from './views/tutor/tutor-list/tutor-list.component';
 import { TutorDetailsComponent } from './views/tutor/tutor-details/tutor-details.component';
@@ -32,15 +31,15 @@ import { ExameListComponent } from './views/exame-fisico/exame-list/exame-list.c
 import { ExameDetailsComponent } from './views/exame-fisico/exame-details/exame-details.component';
 import { MatOption } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatSelectModule } from '@angular/material/select';
-import {MatFormFieldModule } from '@angular/material/form-field';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatInputModule} from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
 import { AsyncPipe } from '@angular/common';
 import { ExameEditComponent } from './views/exame-fisico/exame-edit/exame-edit/exame-edit.component';
 import { NgxViacepModule } from '@brunoc/ngx-viacep';
-import {MatTooltipModule} from '@angular/material/tooltip';
-// import { MatSelectFilter } 
+import { MatTooltipModule } from '@angular/material/tooltip';
+// import { MatSelectFilter }
 
 // import { MatSelec};
 import { ConsultaAnamneseDetailsComponent } from './views/anamnese/consulta-anamnese-details/consulta-anamnese-details.component';
@@ -48,6 +47,8 @@ import { AnamneseEditComponent } from './views/anamnese/anamnese-edit/anamnese-e
 import { MenuPrincipalComponent } from './views/menu-principal/menu-principal.component';
 import { AnimalEditComponent } from './views/animal/animal-edit/animal-edit/animal-edit.component';
 import { RelatorioComponent } from './components/relatorio/relatorio.component';
+import { HttpInterceptorService, httpInterceptorProviders } from './interceptors/http-interceptor.service';
+import { LoginComponent } from './core/login/login.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,7 @@ import { RelatorioComponent } from './components/relatorio/relatorio.component';
     AnimalEditComponent,
     RelatorioComponent,
   ],
- imports: [
+  imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
@@ -93,16 +94,16 @@ import { RelatorioComponent } from './components/relatorio/relatorio.component';
     NgxMaskPipe,
     MatSlideToggleModule,
     BrowserAnimationsModule,
-    MatSelectModule, 
+    MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
     AsyncPipe,
     NgxViacepModule,
-    MatTooltipModule
-    // MatSelectFilterModule 
+    MatTooltipModule,
+    // MatSelectFilterModule
   ],
-  providers: [UsuarioService],
+  providers: [UsuarioService, httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
