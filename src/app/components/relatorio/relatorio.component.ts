@@ -9,6 +9,9 @@ import { Usuario } from 'src/app/models/usuario/usuario';
 import { environment } from 'src/environments/environment';
 import { Animal } from 'src/app/models/animal/animal';
 import { Status } from 'src/app/models/enums/status';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-relatorio',
@@ -69,7 +72,10 @@ export class RelatorioComponent {
         this.selectedStartDate,
         this.selectedEndDate
       ).subscribe({
-        next: (consultas) => console.log(consultas),
+        next: (consultas) => {
+           const documentDefinition = { content: 'This is an sample PDF printed with pdfMake' };
+           pdfMake.createPdf(documentDefinition).open();
+        },
         error: (error) => console.log(error)
       });
     } else {
@@ -80,7 +86,10 @@ export class RelatorioComponent {
         idArgument,
         this.selectedStatus
       ).subscribe({
-        next: (consultas) => console.log(consultas),
+        next: (consultas) => {
+            const documentDefinition = { content: 'This is an sample PDF printed with pdfMake' };
+            pdfMake.createPdf(documentDefinition).open();
+        },
         error: (error) => console.log(error)
       });
     }
