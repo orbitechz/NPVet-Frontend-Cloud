@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Cons, Observable } from 'rxjs';
+import { Animal } from 'src/app/models/animal/animal';
 import { Consulta } from 'src/app/models/consulta/consulta';
+import { Status } from 'src/app/models/enums/status';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,6 +14,20 @@ export class ConsultaService {
   http = inject(HttpClient);
 
   constructor() {}
+
+  getFilteredConsultas(startdate: string, endDate: string, animalId?: number | undefined, status?: Status | undefined): Observable<Consulta[]> {
+    let url = `${this.baseURL}/report?startDate=${startdate}&endDate=${endDate}`;
+
+      if(animalId !== null  && animalId !== undefined)
+      url += `&animalId=${animalId}`;
+ 
+    if (status !== undefined) {
+      if(status !== null)
+      url += `&status=${status}`;
+    }
+    return this.http.get<Consulta[]>(url);
+  }
+  
 
   create(consulta: Consulta): Observable<Consulta> {
     return this.http.post<Consulta>(`${this.baseURL}/post`, consulta)
