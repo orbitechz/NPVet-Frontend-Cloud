@@ -12,6 +12,8 @@ import { environment } from 'src/environments/environment';
 import { Sexo } from 'src/app/models/enums/sexo';
 import { Role } from 'src/app/models/enums/role';
 import { Genero } from 'src/app/models/enums/genero';
+import { AnamnesePergunta } from 'src/app/models/anamnese-pergunta/anamnese-pergunta';
+import { ProgressoMedico } from 'src/app/models/progresso-medico/progresso-medico';
 
 describe('AnamneseService', () => {
   let service: AnamneseService;
@@ -21,6 +23,8 @@ describe('AnamneseService', () => {
   let anamnese: Anamnese;
   let usuario: Usuario;
   let baseURL = `${environment.apiUrl}/anamnese`
+  let pergunta: AnamnesePergunta;
+  let progressoMedico: ProgressoMedico
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -108,6 +112,24 @@ describe('AnamneseService', () => {
       updatedAt: new Date(),
       deletedAt: new Date(),
     };
+
+    pergunta = {
+      id: 1,
+      createdAt: new Date(),
+      deletedAt: new Date(),
+      updatedAt: new Date(),
+      pergunta: 'Teste',
+      resposta: 'Teste'
+    }
+
+    progressoMedico = {
+      progressoMedico: 'Teste',
+      data: new Date(),
+      id: 1,
+      createdAt: new Date(),
+      deletedAt: new Date(),
+      updatedAt: new Date(),
+    }
   });
 
   it('should get a anamnese by id', fakeAsync(() => {
@@ -193,6 +215,28 @@ describe('AnamneseService', () => {
     const req = http.expectOne(`${baseURL}/delete/${anamnese.id}`);
     expect(req.request.method).toEqual('DELETE');
     req.flush('Deletado');
+    tick();
+  }));
+
+  it('should new question an anamnese', fakeAsync(() => {
+    service.addQuestionAnswerToAnamnese(anamnese.id, pergunta).subscribe((result) => {
+      expect(result).toBe(pergunta);
+    });
+
+    const req = http.expectOne(`${baseURL}/adicionar/pergunta/${anamnese.id}`);
+    expect(req.request.method).toEqual('POST');
+    req.flush(pergunta);
+    tick();
+  }));
+
+  it('should new progresso medico an anamnese', fakeAsync(() => {
+    service.addProgressoMedico(progressoMedico).subscribe((result) => {
+      expect(result).toBe(progressoMedico);
+    });
+
+    const req = http.expectOne(`${baseURL}/atualizar/progresso-medico`);
+    expect(req.request.method).toEqual('POST');
+    req.flush(progressoMedico);
     tick();
   }));
 });
