@@ -48,15 +48,7 @@ export class ConsultaAnamneseDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.u.getById(1).subscribe({
-    //   next: (usuario) => {
-    //     this.anamnese.veterinarioDTO = usuario;
-    //   },
-    //   error: (err) => {
-    //     this.isErro = true;
-    //     this.mensagem = err.error;
-    //   },
-    // });
+
 
     this.route.params.subscribe(params => {
       const id = +params['id'];
