@@ -27,8 +27,7 @@ export class ConsultaListComponent {
   showEdit = false
   showToggle = false;
   hasPermission = false
-  role!: string
-  constructor(private route: ActivatedRoute){}
+  constructor(){}
   ngOnInit(): void {
     this.showEdit = this.hasPermission = this.authService.hasPermission("SECRETARIA")
     this.showToggle = this.authService.hasPermission("ADMINISTRADOR")
