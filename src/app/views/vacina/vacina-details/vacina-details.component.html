@@ -1,10 +1,35 @@
-<div class="container-chamandoVacina">
-    <input type="datetime-local" name="" id="" [(ngModel)]="chamandoVacina.dataAplicacao">
-    <input type="text" name="" id="" [(ngModel)]="chamandoVacina.nome">
-    <input type="datetime-local" name="" id="" [(ngModel)]="chamandoVacina.dataRetorno">
-    <textarea name="" id="" cols="30" rows="10" [(ngModel)]="chamandoVacina.descricao"></textarea>
-    <input type="button" (click)="cadastrar()" value="">Salvar
+<div class="container-chamandoVacina" *ngIf="chamandoVacina">
+  <app-mensagem [isErro]="isErro" [mensagem]="mensagem"></app-mensagem>
+  <app-mensagem *ngIf="isErro"[isErro]="!isErro" [mensagem]="mensagem"></app-mensagem>
 
 
+        <div class="row">
+        <div class="col-6">
+        <label for="inputNome" class="form-label"> Nome<span style="color:red">*</span></label>
+        <input *ngIf="!disabled"  type="text" class="form-control" id="inputNome" [(ngModel)]="chamandoVacina.nome" name="nome">
+        <h2 *ngIf="disabled" type="text" class="form-select" id="inputNome" name="nome">{{chamandoVacina.nome}} </h2>
+    </div>
+      
+    <div class="col-6">
+        <label for="inputNome" class="form-label"> Data de aplicação<span style="color:red">*</span></label>
+        <input *ngIf="!disabled" type="datetime-local" class="form-control" id="inputNome" [(ngModel)]="chamandoVacina.dataAplicacao" name="dataAplicacao">
+        <h2 *ngIf="disabled" type="datetime-local" class="form-select" id="inputNome" name="nome">{{chamandoVacina.dataAplicacao}} </h2>
+      </div>
+    </div>
+    <div class="row">
+    <div class="col-6">
+        <label for="inputNome" class="form-label"> Data de retorno<span style="color:red">*</span></label>
+        <input *ngIf="!disabled" type="datetime-local" class="form-control" id="inputNome" [(ngModel)]="chamandoVacina.dataRetorno" name="dataRetorno">
+        <h2 *ngIf="disabled" type="datetime-local" class="form-select" id="inputNome" name="nome">{{chamandoVacina.dataRetorno}} </h2>
 
-</div>
+      </div>
+      <div class="col-6">
+        <label for="inputNome" class="form-label"> Descrição<span style="color:red">*</span></label>
+        <input *ngIf="!disabled" type="text" class="form-control" id="inputNome" [(ngModel)]="chamandoVacina.descricao" name="nome">
+        <h2 *ngIf="disabled" type="text" class="form-select" id="inputNome" name="nome">{{chamandoVacina.descricao}} </h2>
+    </div>
+  </div>
+      <div class="col-12 d-flex justify-content-center py-5 ">
+        <button type="submit" class="btn btn-primary btn-end" (click)="cadastrar()">Finalizar</button>
+      </div>
+      </div>

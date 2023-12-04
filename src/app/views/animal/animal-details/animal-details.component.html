@@ -2,11 +2,6 @@
   <app-mensagem [isErro]="isErro" [mensagem]="mensagem"></app-mensagem>
 
   <form>
-    <!--
-  <div class="row g-3 add-pic d-flex text-align-start ">
-    <h4 id="btn-add-pic">+</h4>
-  </div>
-  -->
     <div class="row g-2 d-flex justify-content-center text-align-center">
       <div class="col-md-6 text-right dados-pet text-align-center align-self-center text-align-center">
         <h3 class="heading text-align-center">DADOS DO PET</h3>
@@ -82,37 +77,24 @@
     <div class="container w-100 row" *ngIf="disabled">
       <div class="col-md-6 text-left">
         <p class="title text-left m-0">Vacinas</p>
-        <button (click)="open(vacina)">Adicionar vacina</button>
+        <app-register-btn [text]="'Adicionar vacina'" (click)="open(vacina)" ></app-register-btn>
       </div>
-      <table>
-        <thead>
-          <tr class="table-vacina">
-            <th scope="col">#</th>
-            <th scope="col">Vacina aplicada</th>
-            <th scope="col">Data de aplicação</th>
-            <th scope="col">Próxima dose</th>
-            <th scope="col">Descrição</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let vacinas in animal.vacinas">
-            <th scope="row">{{vacinas.id}}</th>
-            <td>{{vacinas.nome}}</td>
-            <!-- <td>{{vacina.}}</td>
-            <td>20-11-2024</td> -->
-          </tr>
-        </tbody>
+      <table class="w-100">
+        <div class="w-100 h-100 d-flex flex-column justify-content-center align-items-center mt-5">
+          <div class="w-75 h-100">
+      
+        <app-table [title]="'Vacinas'" [headers]="callHeadersVacina()" [apiUrl]="apiUrlPath()"
+       [detailsPath]="'/web/vacina/'" [entidade]="'Vacina'"
+         [showEdit]="false" [showToggle]="false" [isModal]="true" [showAtivoFilter]="false"></app-table>
+
+         <!-- <app-table [title]="'Vacinas'" [headers]="callHeadersVacina()" [apiUrl]="apiUrlPath()"
+       [detailsPath]="'/web/vacina/'" [entidade]="'Vacina'"
+         [showEdit]="false" [showToggle]="false" [isModal]="true" (detailsClick)="openEditar($event, vacina)"></app-table> -->
+          </div>
+          </div>
       </table>
     </div>
   </form>
-  <!--        
-    <div class=" container w-70">
-      <div class="col-md-6 text-left">
-        <p class="title text-left m-0">Vacinas</p>
-      </div>
-    
-      
-    </div> -->
 
   <div class="col-12 d-flex justify-content-center py-5 ">
     <button *ngIf="!disabled" type="submit" class="btn btn-primary btn-end" (click)="salvar()">Finalizar</button>
@@ -135,8 +117,8 @@
 
 <ng-template #vacina let-c="close" let-d="dismiss">
   <div class="modal-body">
-    <app-vacina-details [chamandoAnimal]="animal" (vacina) = "confirmaVacina()"></app-vacina-details>
-    
+    <app-vacina-details [chamandoAnimal]="animal" [chamandoVacina]="vacinaSelecionada" (vacina) = "confirmaVacina()"></app-vacina-details>
+
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary font-outfit" (click)="c('Close click')">Fechar</button>
