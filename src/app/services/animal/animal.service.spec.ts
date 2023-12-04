@@ -59,6 +59,7 @@ describe('AnimalService', () => {
       deletedAt: new Date(),
       anamneses: [],
       consulta: [],
+      vacinas: [],
       updatedAt: new Date()
   };
   });
