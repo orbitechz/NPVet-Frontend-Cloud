@@ -1,6 +1,7 @@
 import { AbstractEntity } from "../abstract-entity/abstract-entity";
 import { AnamnesePergunta } from "../anamnese-pergunta/anamnese-pergunta";
 import { Animal } from "../animal/animal";
+import { Consulta } from "../consulta/consulta";
 import { ProgressoMedico } from "../progresso-medico/progresso-medico";
 import { Tutor } from "../tutor/tutor";
 import { Usuario } from "../usuario/usuario";
@@ -27,12 +28,14 @@ export class Anamnese extends AbstractEntity{
     olhos!: string;
     ouvidos!: string;
     anamnesePerguntas: AnamnesePergunta[];
+    consulta!: Consulta;
 
     constructor(){
         super();
         this.animalDTO = new Animal();
         this.tutorDTO = new Tutor();
         this.veterinarioDTO = new Usuario();
+        this.consulta = new Consulta();
         this.historicoProgressoMedico = [];
         this.anamnesePerguntas = [];
     }

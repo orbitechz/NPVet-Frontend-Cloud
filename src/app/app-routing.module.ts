@@ -20,6 +20,7 @@ import { LoginComponent } from './core/login/login.component';
 import { Role } from './models/enums/role';
 import { ErrorsComponent } from './core/errors/errors.component';
 import { VacinaDetailsComponent } from './views/vacina/vacina-details/vacina-details.component';
+import { AgendadosComponent } from './views/agendados/agendados.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -35,6 +36,12 @@ const routes: Routes = [
       {
         path: 'erro',
         component: ErrorsComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
+      {
+        path: 'agendados',
+        component: AgendadosComponent,
         canActivate: [routesGuard],
         data: { role: '*' },
       },

@@ -35,6 +35,7 @@ export class TableComponent implements OnInit {
   @Input() showToggle: boolean = true;
   @Input() showEdit: boolean = true;
   @Input() showAtivoFilter: boolean = true;
+  @Input() showSearch: boolean = true;
   @Input() isModal: boolean = false
   @Output() toggleClick = new EventEmitter<number>();
   @Output() detailsClick = new EventEmitter<any>();
@@ -73,7 +74,11 @@ export class TableComponent implements OnInit {
     let valor = item;
     for (const p of campo) {
       if (valor != null) {
-        valor = valor[p];
+        if(p=='telefone'){
+          valor = valor.telefones[0].telefone
+        }else{
+          valor = valor[p];
+        }
       }
     }
     try {

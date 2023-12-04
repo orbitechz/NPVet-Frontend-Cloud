@@ -1,12 +1,14 @@
 <div class="w-100 h-100 d-flex flex-column justify-content-start align-items-center mt-5">
     <div class="w-75 d-flex flex-column justify-content-start ">
-        <app-register-btn [text]="'Marcar nova Consulta'" (clickEvent)=modal(consulta) [isBlocked]="!hasPermission"></app-register-btn>
         <app-mensagem class="mt-3" [isErro]="isErro" [mensagem]="mensagem"></app-mensagem>
         <div class="d-flex justify-content-between mb-3">
         </div>
-        <app-table [isModal]="true" [title]="'Consultas'" [headers]="callHeaders()" [apiUrl]="apiUrlPath()"
-[editPath]="'consulta/update'" [entidade]="'Consulta'" [showToggle]="showToggle" [showEdit]="false" (detailsClick)="modal(consulta, $event)"></app-table>         <button type="button" class="color-white btn font-outfit btn-primary align-self-end"
-            (click)="abrirModal(relatorios)">Impremir Relatorio</button>  
+        <app-table [showSearch]="false" [showAtivoFilter]="false" [isModal]="true" [title]="'Consultas de Hoje'"
+            [headers]="callHeaders()" [urlEspecifica]="apiUrlPath()" [editPath]="'consulta/update'" [entidade]="'Consulta'"
+            [showToggle]="false" [showEdit]="false" (detailsClick)="modal(consulta, $event)"></app-table> <button
+            type="button" class="color-white btn font-outfit btn-primary align-self-end"
+            (click)="abrirModal(relatorios)">Impremir
+            Relatorio</button>
     </div>
 </div>
 
@@ -17,7 +19,7 @@
                 (click)="modal.dismiss('Cross click')"></button></div>
     </div>
     <div class="modal-body">
-        <app-consulta-details [consultaSelecionada]="consultaSelecionada" (confirmarEvent)="confirmar($event)"></app-consulta-details>
+        <app-consulta-details [consultaSelecionada]="consultaSelecionada"></app-consulta-details>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary font-outfit" (click)="modal.close('Close click')">Fechar</button>
