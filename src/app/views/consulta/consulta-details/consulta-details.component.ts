@@ -90,11 +90,7 @@ export class ConsultaDetailsComponent implements OnInit {
   }
   btnAcao() {
     return 'Confirmar';
-  }
-
-
-  anamnese() {
-   
+  } 
 
   anamnese(){
     if(this.hasPermission){
