@@ -38,6 +38,12 @@ const routes: Routes = [
         data: { role: '*' },
       },
       {
+        path: 'agendados',
+        component: TutorListComponent,
+        canActivate: [routesGuard],
+        data: { role: '*' },
+      },
+      {
         path: 'menu',
         component: MenuPrincipalComponent,
         canActivate: [routesGuard],
