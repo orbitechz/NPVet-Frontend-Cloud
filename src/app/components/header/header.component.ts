@@ -10,16 +10,28 @@ import { ConsultaService } from 'src/app/services/consulta/consulta.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent{
   title: string = '';
   routerLink!: string;
   router = inject(Router);
   consultaService = inject(ConsultaService)
   consultasAgendadas! :Consulta[]
-  hoje!: string
   notifs!: number
   url!: string;
   constructor(private location: Location) {
+    let start = this.formatarHorarioStart(new Date().toISOString());
+    let end = this.formatarHorarioEnd(new Date().toISOString());
+    console.log(this.notifs)
+    this.consultaService.getFilteredConsultas(start, end).subscribe({
+      next: (consultas) => {
+        this.consultasAgendadas = consultas
+        this.notifs = this.consultasAgendadas.length
+      },
+      error: (error) => {
+        console.log(error)
+      },
+
+    });
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
@@ -31,19 +43,19 @@ export class HeaderComponent implements OnInit{
         }
       });
   }
-  ngOnInit(): void {
-    this.hoje = new Date().toISOString()
-    console.log(this.hoje)
-    this.consultaService.getFilteredConsultas(this.hoje, this.hoje).subscribe({
-      next: (consultas) => {
-        this.consultasAgendadas = consultas
-        this.notifs = this.consultasAgendadas.length
-      },
-      error: (error) => {
-        console.log(error)
-      },
-
-    });
+  formatarHorarioStart(horario: string): string {
+    const data = new Date(horario);
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const dia = String(data.getDate()).padStart(2, '0');  
+    return `${ano}-${mes}-${dia}T00:00`;
+  }
+  formatarHorarioEnd(horario: string): string {
+    const data = new Date(horario);
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const dia = String(data.getDate()).padStart(2, '0');  
+    return `${ano}-${mes}-${dia}T23:59`;
   }
   back() {
     this.location.back();

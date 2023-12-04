@@ -8,6 +8,6 @@
     </div>
     <div class="notif text-left">
         <bi name="bell-fill" [routerLink]="'/web/agendados'"></bi>
-        <p class="m-0 p-0 qntd-consultas">{{notifs}}</p>
+        <p *ngIf="notifs!=0 && notifs!=null" class="m-0 p-0 qntd-consultas">{{notifs}}</p>
     </div>
 </div>

@@ -39,7 +39,7 @@ const routes: Routes = [
       },
       {
         path: 'agendados',
-        component: TutorListComponent,
+        component: ConsultaListComponent,
         canActivate: [routesGuard],
         data: { role: '*' },
       },
