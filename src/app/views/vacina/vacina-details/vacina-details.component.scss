@@ -1,0 +1,210 @@
+.form-control{
+    border-radius: 2rem;
+    background-color: #fff;
+    padding: 0.5rem;
+  }
+  
+    .table-vacina{
+    border-style: dashed;
+    border-radius: 10rem;
+    background-color: #00003D;
+    padding: 0.5rem;
+    color: #fff;
+  }
+  
+  table{
+    table-layout: fixed;
+  }
+  
+  .form-label{
+    font-family: 'SimplyRounded' !important;
+    color: #00003D;
+    
+  }
+  
+  
+  .form-select{
+    border: none;
+      border-radius: 2.86225rem;
+      background: #FFF;
+      height: 2.8rem;
+      box-shadow: 0px 11.44906px 11.44906px 0px rgba(22, 34, 51, 0.04), 0px 11.44906px 68.6944px 0px rgba(22, 34, 51, 0.04);
+      padding-left: 1.5rem;
+      font-family: Outfit;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: rgb(80, 78, 78);
+  }
+  .heading{
+    color: var(--text-secondary);
+    font-family: Outfit;
+    font-weight: 800;
+    text-align: center;
+  }
+  input:focus-visible, input:focus select:focus-visible, select:focus{
+    border: 0 !important;
+    outline: none !important;
+    box-shadow: 0px 11.44906px 11.44906px 0px rgba(22, 34, 51, 0.04), 0px 11.44906px 68.6944px 0px rgba(22, 34, 51, 0.04);
+    background-color: white;
+  }
+  
+  .btn-edit{
+      background-color: var(--primary);
+  }
+  .input-hidden{
+      display: none;
+      visibility: hidden
+  }
+  
+  .search-btn{
+      width: 20px;
+      width: 20px;
+  }
+  
+  .add-pic {
+    background: #fff;
+    border-radius: 50%;
+    width: 18rem; 
+    height: 18rem; 
+    color: #BABABC;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  #btn-add-pic{
+    font-size: 10rem;
+    text-align: center;
+    align-items: center;
+  
+  }
+  
+  .btn-end{
+    border-radius: 5rem;
+    width: 15rem;
+    font-family: 'SimplyRounded' !important;
+  }
+  
+  label{
+    font-size: 1.2rem;
+    position: relative;
+    top: 1.2rem;
+    left: .5rem;
+  }
+  .heading{
+    color: var(--text-secondary);
+    font-family: Outfit;
+    font-weight: 800;
+  }
+  .subheading, label {
+    font-family: SimplyRounded;
+    color: var(--primary);
+    font-weight: 400;
+  }
+  label{
+    font-size: 1.2rem;
+    position: relative;
+    top: 1rem;
+    left: .5rem;
+  }
+  input, select{
+    border: none;
+    border-radius: 2.86225rem;
+    background: #FFF;
+    height: 2.8rem;
+    box-shadow: 0px 11.44906px 11.44906px 0px rgba(22, 34, 51, 0.04), 0px 11.44906px 68.6944px 0px rgba(22, 34, 51, 0.04);
+    padding-left: 1.5rem;
+    font-family: Outfit;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgb(80, 78, 78);
+  }
+  input:focus-visible, input:focus select:focus-visible, select:focus{
+    border: 0 !important;
+    outline: none !important;
+    box-shadow: 0px 11.44906px 11.44906px 0px rgba(22, 34, 51, 0.04), 0px 11.44906px 68.6944px 0px rgba(22, 34, 51, 0.04);
+    background-color: white;
+  }
+  #confirmar{
+    font-family: SimplyRounded;
+    font-size: 1.2rem;
+    width: 200px;
+    border-radius: 50px;
+  }
+  .add-btn {
+    background-color: white;
+    width: 60px;
+    height: 2.8rem;
+    border-radius: 50px;
+    justify-self: end;
+  }
+  .add-btn.telefone {
+    justify-self: start ;
+  }
+  .secao{
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+  }
+  .add-btn, 
+  .add-btn:hover, 
+  .add-btn bi,
+  .add-btn bi:hover,
+  .endereco-head bi,
+  .endereco-head bi:hover,
+  .telefone-remove-btn bi,
+  .telefone-remove-btn bi:hover
+  {
+    transition: 500ms;
+  }
+  
+  .add-btn:hover{
+    cursor: pointer;
+  }
+  .add-btn bi:hover{
+    color: var(--primary);
+  }
+  .add-btn bi{
+    color: var(--text-secondary);
+    width: 50px;
+    height: 50px
+  }
+  .endereco-head .icon{
+    background-color: var(--text-secondary);
+    height: 1.5rem;
+    width: 50px;
+    border-radius: 50px;
+    cursor: pointer;
+  }
+  
+  .endereco-head bi{
+    width: 25px;
+    height: 25px;
+    color: var(--primary);
+  }
+  .telefone-remove-btn bi:hover, .endereco-head bi:hover{
+    color: red;
+  }
+  .telefone-remove-btn{
+    background-color: var(--text-secondary);
+    height: 1.5rem;
+    width: 50px;
+    border-radius: 50px;
+    cursor: pointer;
+    align-self: end;
+  }
+  .telefone-remove-btn bi{
+    width: 25px;
+    height: 25px;
+    color: var(--primary);
+  }
+  
+  input:disabled, select:disabled{
+    box-shadow: none;
+  }
+  
+  .title{
+    font-family: 'SimplyRounded' !important;
+    color: #00003D;
+    font-size: 30px;
+  }
+  

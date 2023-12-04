@@ -1,0 +1,123 @@
+<div class="relatorio d-flex flex-column gap-4 p-2">
+  <app-mensagem [isErro]="isErro" [mensagem]="mensagem" class="w-50"></app-mensagem>
+
+  <!-- Date Filter Section -->
+  <div class="date-filter d-flex align-items-center justify-content-start gap-4 border-bottom pb-3">
+    <div class="form-group">
+      <label for="startDate" class="form-label">De</label>
+      <input type="datetime-local" id="startDate" name="startDate" class="form-control" placeholder="Start Date"
+        (change)="onStartDateChange($event)" />
+    </div>
+
+    <div class="form-group">
+      <label for="endDate" class="form-label">Até</label>
+      <input type="datetime-local" id="endDate" name="endDate" class="form-control" placeholder="End Date"
+        (change)="onEndDateChange($event)" />
+    </div>
+  </div>
+
+  <!-- Checklist Filter Section -->
+  <div class="checklist-filter mt-4 d-flex flex-column gap-2">
+    <!-- Radio button for printing all consultations in the period -->
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="radio1" name="radioGroup" (click)="onRadioChangeOther()"
+        checked />
+      <label class="form-check-label" for="radio1">
+        Imprimir Todas as Consultas neste Período
+      </label>
+    </div>
+
+    <!-- Radio button for printing consultations by patient -->
+    <div class="vet d-flex align-items-center justify-content-between">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" (click)="onRadioChange()" id="radio2" name="radioGroup" />
+        <label class="form-check-label" for="radio2">
+          Imprimir Relatório de Consultas por Paciente
+        </label>
+      </div>
+
+      <!-- Input, labels, and button for selecting an animal -->
+      <div class="col-md-8 pe-5 justify-content-between d-flex flex-row">
+        <input type="text" [(ngModel)]="consulta.animal" name="animal"
+          class="text-center form-control form-control-md input-hidden" required disabled />
+
+        <p *ngIf="consulta.animal.nome" class="m-0 fw-bold pt-2">
+          Animal: {{ consulta.animal.nome }} - {{ consulta.animal.especie }}
+        </p>
+
+        <p *ngIf="!consulta.animal.nome" class="m-0 fw-bold pt-2">
+          Não selecionado
+        </p>
+
+        <button *ngIf="!disabled" type="button" class="btn btn-primary font-outfit selecionar d-flex flex-row gap-3"
+          (click)="abrirModal(animais)">
+          Selecionar<bi class="search-btn" name="search"> </bi>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Advanced Filters Section -->
+  <div class="dropdown mt-4">
+    <div class="dropdown d-flex gap-2" (click)="toggleDropdown()" id="advancedFiltersDropdown">
+      <i class="bi" [ngClass]="{
+          'bi-chevron-down': isDropdownOpen,
+          'bi-chevron-right': !isDropdownOpen
+        }" id="chevronIcon"></i>
+      <p class="text" data-bs-toggle="dropdown" aria-expanded="false">
+        Filtros Avançados
+      </p>
+    </div>
+    <div class="dropdownMenu p-3" *ngIf="isDropdownOpen" aria-labelledby="advancedFiltersDropdown">
+      <!-- Status da Consulta Filters Section -->
+      <div class="status-filters mt-2 d-flex flex-column gap-2">
+        <p class="fw-bold mb-2">Status da Consulta :</p>
+        <div class="d-flex gap-2">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [name]="allStatusSelected" [checked]="allStatusSelected" (change)="onAllStatusChange()" />
+            <label class="form-check-label"> Todos os Status </label>
+          </div>
+          
+          <div class="form-check" *ngFor="let status of statuses">
+            <input class="form-check-input" type="checkbox" [name]="status" [checked]="!allStatusSelected && selectedStatus === status" (change)="onStatusChange(status)" />
+            <label class="form-check-label" [for]="status">{{ status }}</label>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Imprimir Relatório Button -->
+    <button type="button" class="btn btn-primary font-outfit mt-3" (click)="imprimirRelatorios()">
+      Imprimir Relatorio
+    </button>
+  </div>
+
+  <!-- Modal template for selecting animals -->
+  <ng-template #animais let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title text-primary fw-bold font-outfit">
+        Selecionar Animal
+      </h4>
+      <!-- Close button in the modal header -->
+      <div class="botao shadow">
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+    </div>
+
+    <!-- Modal body with a table component for displaying and selecting animals -->
+    <div class="modal-body">
+      <app-table [title]="'Animais Cadastrados'" [isModal]="true" [headers]="callAnimalHeaders()"
+        [apiUrl]="getAnimalUrl()" [entidade]="'Animal'" [showToggle]="false" [showEdit]="false"
+        [showAtivoFilter]="false" (detailsClick)="definirAnimal($event)"></app-table>
+    </div>
+
+    <!-- Modal footer with a close button -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary font-outfit" (click)="modal.close('Close click')">
+        Fechar
+      </button>
+    </div>
+  </ng-template>
+</div>
