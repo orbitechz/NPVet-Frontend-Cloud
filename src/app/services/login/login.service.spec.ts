@@ -1,8 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-
 import { LoginService } from './login.service';
 import { Login } from 'src/app/models/login/login';
 import { Usuario } from 'src/app/models/usuario/usuario';
