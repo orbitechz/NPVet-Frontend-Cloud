@@ -57,6 +57,7 @@ export class ConsultaAnamneseDetailsComponent implements OnInit {
           this.anamnese.animalDTO = an.animal;
           this.anamnese.tutorDTO = an.tutor;
           this.anamnese.veterinarioDTO = an.veterinario;
+          this.anamnese.consulta = an
         },
         error: (err) => {
           console.log(err);

@@ -49,6 +49,7 @@ import { AnimalEditComponent } from './views/animal/animal-edit/animal-edit/anim
 import { RelatorioComponent } from './components/relatorio/relatorio.component';
 import { HttpInterceptorService, httpInterceptorProviders } from './interceptors/http-interceptor.service';
 import { LoginComponent } from './core/login/login.component';
+import { AgendadosComponent } from './views/agendados/agendados.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { LoginComponent } from './core/login/login.component';
     MenuPrincipalComponent,
     AnimalEditComponent,
     RelatorioComponent,
+    AgendadosComponent,
   ],
   imports: [
     BrowserModule,
