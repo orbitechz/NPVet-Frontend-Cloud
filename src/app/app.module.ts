@@ -46,8 +46,11 @@ import { ConsultaAnamneseDetailsComponent } from './views/anamnese/consulta-anam
 import { AnamneseEditComponent } from './views/anamnese/anamnese-edit/anamnese-edit.component';
 import { MenuPrincipalComponent } from './views/menu-principal/menu-principal.component';
 import { AnimalEditComponent } from './views/animal/animal-edit/animal-edit/animal-edit.component';
+import { RelatorioComponent } from './components/relatorio/relatorio.component';
 import { HttpInterceptorService, httpInterceptorProviders } from './interceptors/http-interceptor.service';
 import { LoginComponent } from './core/login/login.component';
+import { VacinaDetailsComponent } from './views/vacina/vacina-details/vacina-details.component';
+import { AgendadosComponent } from './views/agendados/agendados.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,9 @@ import { LoginComponent } from './core/login/login.component';
     AnamneseEditComponent,
     MenuPrincipalComponent,
     AnimalEditComponent,
+    VacinaDetailsComponent,
+    RelatorioComponent,
+    AgendadosComponent,
   ],
   imports: [
     BrowserModule,

@@ -90,14 +90,22 @@ export class ConsultaDetailsComponent implements OnInit {
   }
   btnAcao() {
     return 'Confirmar';
-  }
+  } 
 
   anamnese(){
     if(this.hasPermission){
-      this.modalService.dismissAll()
-      this.router.navigate(['/web/anamnese/register', this.consulta.id])
+      this.modalService.dismissAll();
+  
+    if (this.consulta.anamnese && this.consulta.anamnese.id) {
+      this.router.navigate(['/web/anamnese/edit', this.consulta.anamnese.id]);
+    } else {
+      this.router.navigate(['/web/anamnese/register', this.consulta.id]);
+    
+    }
+
     }
   }
+  
 
   exameFisico(){
     if(this.hasPermission){
@@ -105,7 +113,6 @@ export class ConsultaDetailsComponent implements OnInit {
       this.router.navigate(['/web/exame/register', this.consulta.id])
     }
   }
-
   getAnimalUrl(){
     return `${environment.apiUrl}/animal`
   }

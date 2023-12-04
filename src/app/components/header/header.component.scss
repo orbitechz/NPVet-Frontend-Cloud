@@ -35,3 +35,28 @@
     border-radius: 40px;
     background-color: white;
 }
+
+bi{
+    height: 1.8rem;
+    width: 1.8rem;
+    color: #00003D;
+    cursor: pointer;
+}
+
+.qntd-consultas{
+    position: relative;
+    bottom: .8rem;
+    left: .3rem;
+    // height: 25px;
+    width: 25px;
+    font-family: Arista;
+    font-size: 1.2rem;
+    background-color: rgba(255, 24, 24, 0.671);
+    text-align: center;
+    border-radius: 50px;
+    vertical-align: middle;
+}
+
+.notif{
+    display: flex;
+}

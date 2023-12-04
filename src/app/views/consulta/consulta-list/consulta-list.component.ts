@@ -1,6 +1,8 @@
 import { Component, Input, inject } from '@angular/core';
+
+import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
 import { ActivatedRoute } from '@angular/router';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Header } from 'src/app/components/table/header';
 import { Consulta } from 'src/app/models/consulta/consulta';
 import { ConsultaService } from 'src/app/services/consulta/consulta.service';
@@ -21,14 +23,14 @@ export class ConsultaListComponent {
   modalService = inject(NgbModal)
   data: any[] = [];
   consultaSelecionada!: Consulta
+  modalRef!: NgbModalRef;
 
 
   authService = inject(LoginService)
   showEdit = false
   showToggle = false;
   hasPermission = false
-  role!: string
-  constructor(private route: ActivatedRoute){}
+  constructor(){}
   ngOnInit(): void {
     this.showEdit = this.hasPermission = this.authService.hasPermission("SECRETARIA")
     this.showToggle = this.authService.hasPermission("ADMINISTRADOR")
@@ -72,5 +74,12 @@ export class ConsultaListComponent {
       this.mensagem ="Consulta criada com sucesso!"
     }
   }
+  abrirModal(template: any) {
+    this.modalRef = this.modalService.open(template, {
+      size: 'lg',
+      centered: true,
+    });
+  }
+
 }
 

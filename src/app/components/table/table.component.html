@@ -1,6 +1,6 @@
 <div class="w-100 h-100">
     <div class="d-flex gap-3 flex-column">
-        <div class="search-container">
+        <div *ngIf="showSearch" class="search-container">
             <bi class="icon" name="search"></bi>
             <!-- <input type="text" class="search-input shadow-sm" placeholder="Buscar" [formControl]="filter"/> -->
             <app-search-bar (searchEvent)="search($event)"></app-search-bar>
