@@ -19,6 +19,7 @@ import { routesGuard } from './guards/routes.guard';
 import { LoginComponent } from './core/login/login.component';
 import { Role } from './models/enums/role';
 import { ErrorsComponent } from './core/errors/errors.component';
+import { AgendadosComponent } from './views/agendados/agendados.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -39,7 +40,7 @@ const routes: Routes = [
       },
       {
         path: 'agendados',
-        component: ConsultaListComponent,
+        component: AgendadosComponent,
         canActivate: [routesGuard],
         data: { role: '*' },
       },
