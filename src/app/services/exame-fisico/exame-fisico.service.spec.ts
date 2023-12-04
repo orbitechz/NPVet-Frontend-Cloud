@@ -113,6 +113,7 @@ describe('ExameFisicoService', () => {
         olhos: 'Olhos Teste',
         ouvidos: 'Ouvidos Teste',
         anamnesePerguntas: [],
+        consulta: new Consulta(),
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: new Date(),

@@ -14,6 +14,7 @@ import { Role } from 'src/app/models/enums/role';
 import { Genero } from 'src/app/models/enums/genero';
 import { AnamnesePergunta } from 'src/app/models/anamnese-pergunta/anamnese-pergunta';
 import { ProgressoMedico } from 'src/app/models/progresso-medico/progresso-medico';
+import { Consulta } from 'src/app/models/consulta/consulta';
 
 describe('AnamneseService', () => {
   let service: AnamneseService;
@@ -108,6 +109,7 @@ describe('AnamneseService', () => {
       olhos: 'Olhos Teste',
       ouvidos: 'Ouvidos Teste',
       anamnesePerguntas: [],
+      consulta: new Consulta(),
       createdAt: new Date(),
       updatedAt: new Date(),
       deletedAt: new Date(),
