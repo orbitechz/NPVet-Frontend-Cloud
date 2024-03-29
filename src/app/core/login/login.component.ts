@@ -24,8 +24,8 @@ export class LoginComponent {
   }
   doLogin() {
     this.service.login(this.login).subscribe({
-      next: (user) => {
-        this.service.addToken(user.token);
+      next: (session) => {
+        this.service.addToken(session.access_token);
         this.router.navigate(['/web']);
       },
       error: (erro: any) => {
