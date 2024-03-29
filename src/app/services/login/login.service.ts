@@ -13,8 +13,9 @@ export class LoginService {
   private baseURL = `${environment.apiUrl}/auth`;
   http = inject(HttpClient);
   constructor() {}
-  login(login: Login): Observable<Usuario> {
-    return this.http.post<Usuario>(this.baseURL, login);
+
+  login(login: Login): Observable<any> {
+    return this.http.post<Usuario>(`${this.baseURL}/authenticate`, login);
   }
 
   logout(): Observable<any> {
@@ -38,17 +39,13 @@ export class LoginService {
     return '';
   }
   hasPermission(role: string) {
-    if(role==="*"){
-      return true
-    }else{
+    if (role === '*') {
+      return true;
+    } else {
       let token = this.jwtDecode() as any;
-      let roles = token.realm_access.roles;
-      let hasRole = false
-      roles.forEach((r: string) => {
-        if (role === r) hasRole = true;
-        if (r==="ADMINISTRADOR") hasRole = true
-      });
-      return hasRole;
+      let authorizedRole = token.role;
+
+      return authorizedRole === role || authorizedRole === 'ADMINISTRADOR';
     }
   }
 }
