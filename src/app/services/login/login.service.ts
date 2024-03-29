@@ -39,18 +39,13 @@ export class LoginService {
     return '';
   }
   hasPermission(role: string) {
-    // if (role === '*') {
-    //   return true;
-    // } else {
-    //   let token = this.jwtDecode() as any;
-    //   let roles = token.realm_access.roles;
-    //   let hasRole = false;
-    //   roles.forEach((r: string) => {
-    //     if (role === r) hasRole = true;
-    //     if (r === 'ADMINISTRADOR') hasRole = true;
-    //   });
-    //   return hasRole;
-    // }
-    return true;
+    if (role === '*') {
+      return true;
+    } else {
+      let token = this.jwtDecode() as any;
+      let authorizedRole = token.role;
+
+      return authorizedRole === role || authorizedRole === 'ADMINISTRADOR';
+    }
   }
 }
