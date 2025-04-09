@@ -20,7 +20,7 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.9",
-    "@brunoc/ngx-viacep": "^3.4.1",
+    "@brunoc/ngx-viacep": "^3.4.0",
     "@material/form-field": "^15.0.0-canary.bc9ae6c9c.0",
     "@ng-bootstrap/ng-bootstrap": "^15.1.1",
     "@popperjs/core": "^2.11.6",
