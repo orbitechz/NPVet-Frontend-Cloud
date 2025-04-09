@@ -58,22 +58,29 @@
       </div>
     </div>
 
-    <div class="col-md-20">
+<div class="col-md-12 mt-4">
+  <h6 class="mb-2 form-label">Tutor<span style="color:red">*</span>:</h6>
 
-      <div class="col-md-20">
+  <div *ngIf="!disabled">
+    <input type="hidden" [(ngModel)]="animal.tutorId" name="tutor" />
 
-        <h6 class="mb-0 form-label">Tutor<span style="color:red">*</span>:</h6>
-      </div>
-
-
-      <div class="col-md-8 pe-5 justify-content-between d-flex flex-row" *ngIf="!disabled">
-        <input type="text" [(ngModel)]="animal.tutorId" name="tutor"
-          class="text-center form-control form-control-md input-hidden" required disabled />
-        <p *ngIf="animal.tutorId" class="m-0 fw-bold pt-2">{{animal.tutorId.nome}}</p>
-      </div>
-      <input *ngIf="!disabled" type="email" class="form-control" id="inputEmail4" (click)="open(content)">
-      <h1 *ngIf="disabled" class="form-select">{{animal.tutorId.nome}}</h1>
+    <div class="d-flex align-items-center">
+      <input
+        type="text"
+        class="form-control"
+        [value]="animal.tutorId?.nome || ''"
+        placeholder="Clique para selecionar um tutor"
+        readonly
+        (click)="open(content)"
+      />
     </div>
+  </div>
+
+  <div *ngIf="disabled">
+    <h2 class="form-select">{{ animal.tutorId?.nome }}</h2>
+  </div>
+</div>
+
     <div class="container w-100 row" *ngIf="disabled">
       <div class="col-md-6 text-left">
         <p class="title text-left m-0">Vacinas</p>
