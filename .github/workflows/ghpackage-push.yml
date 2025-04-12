@@ -26,13 +26,8 @@ jobs:
       - name: Instalação de Dependências
         run: npm install
 
-      - name: Instalação do Chrome
-        run: |
-            sudo apt-get update
-            sudo apt-get install -y google-chrome-stable 
-
       - name: Execução de Testes Automatizados
-        run: ng test --browsers=ChromeHeadless --watch=false
+        run: npx ng test --browsers=ChromeHeadless --watch=false
 
   build-e-push-develop:
     runs-on: ubuntu-latest
