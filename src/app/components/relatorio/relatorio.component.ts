@@ -14,7 +14,7 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Anamnese } from 'src/app/models/anamnese/anamnese';
 import { Tutor } from 'src/app/models/tutor/tutor';
 import { TDocumentDefinitions, Style } from 'pdfmake/interfaces';
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+(pdfMake as any).vfs = pdfFonts.vfs;
 
 @Component({
   selector: 'app-relatorio',

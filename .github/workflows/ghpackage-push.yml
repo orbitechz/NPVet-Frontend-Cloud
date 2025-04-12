@@ -1,42 +1,124 @@
-name: Criar imagem Docker e publicar em Github Packages
+name: Pipeline CI/CD Frontend Angular
+
 on:
   push:
-    branches: ['main']
+    branches: 
+      - main
+      - develop
   pull_request:
-    branches: ['main']
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+    branches:
+      - main
+      - develop
 
 jobs:
-  build-and-push-image:
+  testes:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
+    name: Execução de Testes Automatizados
     steps:
-      - name: Checkout repository
+      - name: Checkout do Código Fonte
         uses: actions/checkout@v3
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+      - name: Configuração do Ambiente Node.js
+        uses: actions/setup-node@v3
         with:
-          registry: ${{ env.REGISTRY }}
+          node-version: '18'
+
+      - name: Instalação de Dependências
+        run: npm install
+
+      - name: Execução de Testes Automatizados
+        run: npx ng test --browsers=ChromeHeadless --watch=false
+
+  build-e-push-develop:
+    runs-on: ubuntu-latest
+    name: Build e Push da Imagem Docker - Ambiente de Desenvolvimento
+    needs: testes
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - name: Checkout do Código Fonte
+        uses: actions/checkout@v3
+
+      - name: Autenticação no Google Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: gcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+      - name: Build e Push da Imagem Docker
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: "gcr.io/${{ secrets.GCP_PROJECT_ID }}/npvet-frontend:develop"
+      
+  deploy-develop:
+    runs-on: ubuntu-latest
+    name: Deploy - Ambiente de Desenvolvimento
+    needs: build-e-push-develop
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - name: Autenticação com Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configuração do Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          install_components: 'beta'
+
+      - name: Publicação do Frontend no Google Cloud
+        run: |
+          gcloud run deploy npvet-frontend \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/npvet-frontend:develop \
+            --platform managed \
+            --region us-central1
+
+  build-e-push-main:
+    runs-on: ubuntu-latest
+    name: Build e Push da Imagem Docker - Ambiente de Produção
+    needs: testes
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout do Código Fonte
+        uses: actions/checkout@v3
+
+      - name: Autenticação no Google Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: gcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build e Push da Imagem Docker
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: "gcr.io/${{ secrets.GCP_PROJECT_ID }}/npvet-frontend:main"
+
+  deploy-main:
+    runs-on: ubuntu-latest
+    name: Deploy - Ambiente de Produção
+    needs: build-e-push-main
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Autenticação com Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configuração do Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          install_components: 'beta'
+
+      - name: Publicação do Frontend no Google Cloud
+        run: |
+          gcloud run deploy npvet-frontend \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/npvet-frontend:main \
+            --platform managed \
+            --region us-central1
