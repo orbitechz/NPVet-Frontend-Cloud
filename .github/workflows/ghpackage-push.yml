@@ -38,12 +38,13 @@ jobs:
       - name: Checkout do Código Fonte
         uses: actions/checkout@v3
 
-      - name: Autenticação no Google Container Registry
-        uses: docker/login-action@v2
+      - name: Autenticação com Google Cloud
+        uses: google-github-actions/auth@v2
         with:
-          registry: gcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Autenticação no Google Container Registry
+        run: gcloud auth configure-docker gcr.io
 
       - name: Build e Push da Imagem Docker
         uses: docker/build-push-action@v4
@@ -51,7 +52,7 @@ jobs:
           context: .
           push: true
           tags: "gcr.io/${{ secrets.GCP_PROJECT_ID }}/npvet-frontend:develop"
-      
+
   deploy-develop:
     runs-on: ubuntu-latest
     name: Deploy - Ambiente de Desenvolvimento
@@ -85,12 +86,13 @@ jobs:
       - name: Checkout do Código Fonte
         uses: actions/checkout@v3
 
-      - name: Autenticação no Google Container Registry
-        uses: docker/login-action@v2
+      - name: Autenticação com Google Cloud
+        uses: google-github-actions/auth@v2
         with:
-          registry: gcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Autenticação no Google Container Registry
+        run: gcloud auth configure-docker gcr.io
 
       - name: Build e Push da Imagem Docker
         uses: docker/build-push-action@v4
