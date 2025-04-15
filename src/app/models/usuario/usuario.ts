@@ -6,6 +6,6 @@ export class Usuario extends AbstractEntity {
   cpf!: string;
   role!: Role;
   username!: string;
-  senha!: string;
+  password!: string;
   token!: string;
 }

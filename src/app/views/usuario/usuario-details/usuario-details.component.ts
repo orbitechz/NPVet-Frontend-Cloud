@@ -31,7 +31,7 @@ export class UsuarioDetailsComponent implements OnInit {
   }
 
   passwordsMatch() {
-    return this.usuario.senha === this.confirmarSenha;
+    return this.usuario.password === this.confirmarSenha;
   }
 
   submitForm(form: NgForm): void {
