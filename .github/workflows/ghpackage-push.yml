@@ -5,10 +5,12 @@ on:
     branches: 
       - main
       - develop
+      - staging
   pull_request:
     branches:
       - main
       - develop
+      - staging
 
 jobs:
   testes:
@@ -74,6 +76,54 @@ jobs:
         run: |
           gcloud run deploy npvet-frontend \
             --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/npvet-frontend:develop \
+            --platform managed \
+            --region us-central1
+
+  build-e-push-staging:
+    runs-on: ubuntu-latest
+    name: Build e Push da Imagem Docker - Ambiente de Staging
+    needs: testes
+    if: github.ref == 'refs/heads/staging'
+    steps:
+      - name: Checkout do Código Fonte
+        uses: actions/checkout@v3
+
+      - name: Autenticação com Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Autenticação no Google Container Registry
+        run: gcloud auth configure-docker gcr.io
+
+      - name: Build e Push da Imagem Docker
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: "gcr.io/${{ secrets.GCP_PROJECT_ID }}/npvet-frontend:staging"
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    name: Deploy - Ambiente de Staging
+    needs: build-e-push-staging
+    if: github.ref == 'refs/heads/staging'
+    steps:
+      - name: Autenticação com Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configuração do Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          install_components: 'beta'
+
+      - name: Publicação do Frontend no Google Cloud
+        run: |
+          gcloud run deploy npvet-frontend \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/npvet-frontend:staging \
             --platform managed \
             --region us-central1
 
