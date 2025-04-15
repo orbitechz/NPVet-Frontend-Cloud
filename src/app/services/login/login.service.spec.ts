@@ -32,7 +32,7 @@ describe('LoginService', () => {
       deletedAt: new Date(),
       nome: 'test',
       cpf: 'test',
-      senha: '123'
+      password: '123'
     };
     spyOn(service['http'], 'post').and.returnValue(of(expectedUser));
 

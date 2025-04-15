@@ -61,7 +61,7 @@ describe('AnamneseService', () => {
       cpf: '123.456.789-10',
       role: Role.ADMINISTRADOR,
       username: 'nome_usuario',
-      senha: 'senha_secreta',
+      password: 'senha_secreta',
       token: 'token_gerado',
       createdAt: new Date(),
       updatedAt: new Date(),
