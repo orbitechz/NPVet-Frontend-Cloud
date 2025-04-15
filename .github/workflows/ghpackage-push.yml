@@ -122,7 +122,7 @@ jobs:
 
       - name: Publicação do Frontend no Google Cloud
         run: |
-          gcloud run deploy npvet-frontend-staging \
+          gcloud run deploy npvet-frontend \
             --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/npvet-frontend:staging \
             --platform managed \
             --region us-central1
