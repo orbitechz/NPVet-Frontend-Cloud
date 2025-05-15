@@ -79,29 +79,30 @@ jobs:
             --platform managed \
             --region us-central1
 
-  build-e-push-staging:
-    runs-on: ubuntu-latest
-    name: Build e Push da Imagem Docker - Ambiente de Staging
+  build-and-push-main:
     needs: testes
-    if: github.ref == 'refs/heads/staging'
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout do Código Fonte
+      - name: Checkout de código
         uses: actions/checkout@v3
 
-      - name: Autenticação com Google Cloud
-        uses: google-github-actions/auth@v2
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v3
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Autenticação no Google Container Registry
-        run: gcloud auth configure-docker gcr.io
-
-      - name: Build e Push da Imagem Docker
+      - name: Build e Push da imagem Docker
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ghcr.io/orbitechz/npvet-frontend-cloud:staging
+          tags: |
+            ghcr.io/orbitechz/npvet-frontend-cloud:latest
+            ghcr.io/orbitechz/npvet-frontend-cloud:${{ github.sha }}
+
 #   build-e-push-staging-gcloud:
 #     runs-on: ubuntu-latest
 #     name: Build e Push da Imagem Docker - Ambiente de Staging
@@ -150,7 +151,7 @@ jobs:
 #             --platform managed \
 #             --region us-central1
 
-  build-and-push-main:
+  build-and-push-staging:
     needs: testes
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
