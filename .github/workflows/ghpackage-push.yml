@@ -172,7 +172,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/orbitechz/npvet-frontend-cloud:latest
+            ghcr.io/orbitechz/npvet-frontend-cloud:staging
             ghcr.io/orbitechz/npvet-frontend-cloud:${{ github.sha }}
 
   deploy-main:
