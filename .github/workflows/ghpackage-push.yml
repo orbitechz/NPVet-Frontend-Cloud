@@ -1,14 +1,16 @@
-name: CI - Frontend Angular
+name: Frontend Angular Pipeline
 
 on:
   push:
     branches: 
       - main
       - staging
+      - develop
   pull_request:
     branches:
       - main
       - staging
+      - develop
 
 jobs:
   testes:
