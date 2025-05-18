@@ -99,7 +99,7 @@ jobs:
           tags: ghcr.io/${{ github.repository_owner }}/npvet-frontend-cloud:develop
 
   deploy-to-staging:
-    needs: build-and-push-staging
+    needs: build-e-push-staging
     if: github.ref == 'refs/heads/staging'
     runs-on: ubuntu-latest
     steps:
