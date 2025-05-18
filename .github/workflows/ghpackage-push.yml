@@ -2,15 +2,13 @@ name: Pipeline CI/CD Frontend Angular
 
 on:
   push:
-    branches: 
-      - main
-      - develop
-      - staging
-  pull_request:
     branches:
       - main
       - develop
       - staging
+  pull_request:
+    branches: ["*"]
+      
 
 jobs:
   testes:
@@ -29,7 +27,53 @@ jobs:
         run: npm install
 
       - name: Execução de Testes Automatizados
-        run: npx ng test --browsers=ChromeHeadless --watch=false
+        run: npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+
+  build-e-push-staging:
+    runs-on: ubuntu-latest
+    name: Build e Push da Imagem Docker - Ambiente de Staging
+    needs: testes
+    if: github.ref == 'refs/heads/staging'
+    steps:
+      - name: Checkout do Código Fonte
+        uses: actions/checkout@v3
+
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build e Push da Imagem Docker
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/npvet-frontend:staging
+
+  build-e-push-main:
+    runs-on: ubuntu-latest
+    name: Build e Push da Imagem Docker - Ambiente de Produção
+    needs: testes
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout do Código Fonte
+        uses: actions/checkout@v3
+
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build e Push da Imagem Docker
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/npvet-frontend:latest
 
   build-e-push-develop:
     runs-on: ubuntu-latest
@@ -40,161 +84,16 @@ jobs:
       - name: Checkout do Código Fonte
         uses: actions/checkout@v3
 
-      - name: Autenticação com Google Cloud
-        uses: google-github-actions/auth@v2
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Autenticação no Google Container Registry
-        run: gcloud auth configure-docker gcr.io
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build e Push da Imagem Docker
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ghcr.io/orbitechz/npvet-frontend-cloud:develop
-
-  deploy-develop:
-    runs-on: ubuntu-latest
-    name: Deploy - Ambiente de Desenvolvimento
-    needs: build-e-push-develop
-    if: github.ref == 'refs/heads/develop'
-    steps:
-      - name: Autenticação com Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Configuração do Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          install_components: 'beta'
-
-      - name: Publicação do Frontend no Google Cloud
-        run: |
-          gcloud run deploy npvet-frontend \
-            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/npvet-frontend:develop \
-            --platform managed \
-            --region us-central1
-
-  build-and-push-main:
-    needs: testes
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout de código
-        uses: actions/checkout@v3
-
-      - name: Login no GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build e Push da imagem Docker
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: |
-            ghcr.io/orbitechz/npvet-frontend-cloud:latest
-            ghcr.io/orbitechz/npvet-frontend-cloud:${{ github.sha }}
-
-#   build-e-push-staging-gcloud:
-#     runs-on: ubuntu-latest
-#     name: Build e Push da Imagem Docker - Ambiente de Staging
-#     needs: testes
-#     if: github.ref == 'refs/heads/staging'
-#     steps:
-#       - name: Checkout do Código Fonte
-#         uses: actions/checkout@v3
-
-#       - name: Autenticação com Google Cloud
-#         uses: google-github-actions/auth@v2
-#         with:
-#           credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-#       - name: Autenticação no Google Container Registry
-#         run: gcloud auth configure-docker gcr.io
-
-#       - name: Build e Push da Imagem Docker
-#         uses: docker/build-push-action@v4
-#         with:
-#           context: .
-#           push: true
-#           tags: "gcr.io/${{ secrets.GCP_PROJECT_ID }}/npvet-frontend:staging"
-
-#   deploy-staging:
-#     runs-on: ubuntu-latest
-#     name: Deploy - Ambiente de Staging
-#     needs: build-e-push-staging
-#     if: github.ref == 'refs/heads/staging'
-#     steps:
-#       - name: Autenticação com Google Cloud
-#         uses: google-github-actions/auth@v2
-#         with:
-#           credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-#       - name: Configuração do Google Cloud SDK
-#         uses: google-github-actions/setup-gcloud@v2
-#         with:
-#           project_id: ${{ secrets.GCP_PROJECT_ID }}
-#           install_components: 'beta'
-
-#       - name: Publicação do Frontend no Google Cloud
-#         run: |
-#           gcloud run deploy npvet-frontend-staging \
-#             --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/npvet-frontend:staging \
-#             --platform managed \
-#             --region us-central1
-
-  build-and-push-staging:
-    needs: testes
-    if: github.ref == 'refs/heads/staging'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout de código
-        uses: actions/checkout@v3
-
-      - name: Login no GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build e Push da imagem Docker
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: |
-            ghcr.io/orbitechz/npvet-frontend-cloud:staging
-            ghcr.io/orbitechz/npvet-frontend-cloud:${{ github.sha }}
-
-  deploy-main:
-    runs-on: ubuntu-latest
-    name: Deploy - Ambiente de Produção
-    needs: build-and-push-main
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Autenticação com Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Configuração do Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          install_components: 'beta'
-
-      - name: Publicação do Frontend no Google Cloud
-        run: |
-          gcloud run deploy npvet-frontend \
-            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/npvet-frontend:main \
-            --platform managed \
-            --region us-central1
+          tags: ghcr.io/${{ github.repository_owner }}/npvet-frontend:develop

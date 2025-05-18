@@ -49,9 +49,9 @@
                     <!-- Senha -->
                     <div class="col-md-4 d-flex align-items-center justify-content-between">
                         <div class="form-group pass">
-                            <label for="senha" class="mb-1">Senha<span style="color:red">*</span></label>
-                            <input [type]="hide ? 'password' : 'text'" id="senha" class="form-control" name="senha"
-                                [(ngModel)]="usuario.senha" [disabled]="!editMode" />
+                            <label for="password" class="mb-1">Senha<span style="color:red">*</span></label>
+                            <input [type]="hide ? 'password' : 'text'" id="password" class="form-control" name="password"
+                                [(ngModel)]="usuario.password" [disabled]="!editMode" />
                         </div>
                         <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
                             class="eye align-self-end">
