@@ -50,7 +50,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/npvet-frontend:staging
+          tags: ghcr.io/${{ github.repository_owner }}/npvet-frontend-cloud:staging
 
   build-e-push-main:
     runs-on: ubuntu-latest
@@ -73,7 +73,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/npvet-frontend:latest
+          tags: ghcr.io/${{ github.repository_owner }}/npvet-frontend-cloud:latest
 
   build-e-push-develop:
     runs-on: ubuntu-latest
@@ -96,4 +96,52 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/npvet-frontend:develop
+          tags: ghcr.io/${{ github.repository_owner }}/npvet-frontend-cloud:develop
+
+  deploy-to-staging:
+    needs: build-and-push-staging
+    if: github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configurar gcloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configurar kubectl
+        uses: google-github-actions/get-gke-credentials@v1
+        with:
+          cluster_name: npvet-cluster
+          location: us-central1 
+          project_id: ${{ secrets.PROJECT_ID }}
+
+      - name: Reiniciar o deployment
+        run: |
+          kubectl -n npvet-staging rollout restart deployment npvet-frontend
+
+  deploy-to-production:
+    needs: build-e-push-main
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configurar gcloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configurar kubectl
+        uses: google-github-actions/get-gke-credentials@v1
+        with:
+          cluster_name: npvet-cluster
+          location: us-central1
+          project_id: ${{ secrets.PROJECT_ID }}
+
+      - name: Reiniciar o deployment
+        run: |
+          kubectl -n npvet-prod rollout restart deployment npvet-frontend
