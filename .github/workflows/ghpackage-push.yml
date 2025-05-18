@@ -22,9 +22,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm'
 
       - name: Instalação de Dependências
-        run: npm install
+        run: npm ci
 
       - name: Execução de Testes Automatizados
         run: npx ng test --browsers=ChromeHeadless --watch=false
@@ -47,10 +48,12 @@ jobs:
       - name: Definir TAG dinamicamente
         id: tag
         run: |
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+          if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
             echo "tag=latest" >> $GITHUB_OUTPUT
-          elif [[ "${{ github.ref }}" == "refs/heads/staging" ]]; then
+          elif [[ "${GITHUB_REF}" == "refs/heads/staging" ]]; then
             echo "tag=staging" >> $GITHUB_OUTPUT
+          else
+            echo "tag=dev" >> $GITHUB_OUTPUT
           fi
 
       - name: Build e Push da Imagem Docker
