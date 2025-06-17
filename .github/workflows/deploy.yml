@@ -8,7 +8,10 @@ on:
       - staging
   pull_request:
     branches: ["*"]
-      
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   testes:
@@ -16,7 +19,7 @@ jobs:
     name: Execução de Testes Automatizados
     steps:
       - name: Checkout do Código Fonte
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configuração do Ambiente Node.js
         uses: actions/setup-node@v3
@@ -29,119 +32,96 @@ jobs:
       - name: Execução de Testes Automatizados
         run: npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
 
-  build-e-push-staging:
-    runs-on: ubuntu-latest
-    name: Build e Push da Imagem Docker - Ambiente de Staging
+  # Job de Build e Push para o ambiente de STAGING
+  build-and-push-staging:
+    name: Build e Push da Imagem (Staging)
     needs: testes
-    if: github.ref == 'refs/heads/staging'
+    # Executa para as branches de develop e staging
+    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout do Código Fonte
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Login no GitHub Container Registry
-        uses: docker/login-action@v2
+      - name: Autenticar no Google Cloud (Staging)
+        uses: google-github-actions/auth@v2
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          credentials_json: ${{ secrets.GCP_SA_KEY_STAGING }}
 
-      - name: Build e Push da Imagem Docker
-        uses: docker/build-push-action@v4
+      - name: Configurar Docker para o Artifact Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: Build e Push para o Artifact Registry (Staging)
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/npvet-frontend-cloud:staging
+          # Constrói a tag usando o PROJECT_ID de staging e a tag da branch
+          tags: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID_STAGING }}/npvet-repo/npvet-frontend-cloud:${{ github.ref_name }}
 
-  build-e-push-main:
-    runs-on: ubuntu-latest
-    name: Build e Push da Imagem Docker - Ambiente de Produção
+  # Job de Build e Push para o ambiente de PRODUÇÃO
+  build-and-push-production:
+    name: Build e Push da Imagem (Produção)
     needs: testes
     if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout do Código Fonte
-        uses: actions/checkout@v3
-
-      - name: Login no GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build e Push da Imagem Docker
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: ghcr.io/${{ github.repository_owner }}/npvet-frontend-cloud:latest
-
-  build-e-push-develop:
     runs-on: ubuntu-latest
-    name: Build e Push da Imagem Docker - Ambiente de Desenvolvimento
-    needs: testes
-    if: github.ref == 'refs/heads/develop'
     steps:
       - name: Checkout do Código Fonte
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Login no GitHub Container Registry
-        uses: docker/login-action@v2
+      - name: Autenticar no Google Cloud (Produção)
+        uses: google-github-actions/auth@v2
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          credentials_json: ${{ secrets.GCP_SA_KEY_PRODUCTION }}
 
-      - name: Build e Push da Imagem Docker
-        uses: docker/build-push-action@v4
+      - name: Configurar Docker para o Artifact Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: Build e Push para o Artifact Registry (Produção)
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/npvet-frontend-cloud:develop
+          # Constrói a tag usando o PROJECT_ID de produção e a tag 'latest'
+          tags: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID_PRODUCTION }}/npvet-repo/npvet-frontend-cloud:latest
 
+  # Jobs de deploy agora dependem dos seus respectivos jobs de build
   deploy-to-staging:
-    needs: build-e-push-staging
+    name: Deploy em Staging
+    needs: build-and-push-staging # Depende do build de staging
     if: github.ref == 'refs/heads/staging'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Configurar gcloud
-        uses: google-github-actions/auth@v1
+      - name: Autenticar e Configurar gcloud
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY_STAGING }}
 
       - name: Configurar kubectl
-        uses: google-github-actions/get-gke-credentials@v1
-        with:
-          cluster_name: npvet-cluster
-          location: us-central1 
-          project_id: ${{ secrets.GCP_PROJECT_ID_STAGING }}
-
-      - name: Reiniciar o deployment
         run: |
-          kubectl -n npvet-staging rollout restart deployment npvet-frontend
+          gcloud container clusters get-credentials npvet-cluster \
+            --zone=us-central1-a \
+            --project=${{ secrets.GCP_PROJECT_ID_STAGING }}
+
+      - name: Reiniciar o deployment do Frontend
+        run: kubectl -n npvet-staging rollout restart deployment npvet-frontend
 
   deploy-to-production:
-    needs: build-e-push-main
+    name: Deploy em Produção
+    needs: build-and-push-production # Depende do build de produção
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Configurar gcloud
-        uses: google-github-actions/auth@v1
+      - name: Autenticar e Configurar gcloud
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY_PRODUCTION }}
 
       - name: Configurar kubectl
-        uses: google-github-actions/get-gke-credentials@v1
-        with:
-          cluster_name: npvet-cluster
-          location: us-central1
-          project_id: ${{ secrets.GCP_PROJECT_ID_PRODUCTION }}
-
-      - name: Reiniciar o deployment
         run: |
-          kubectl -n npvet-prod rollout restart deployment npvet-frontend
+          gcloud container clusters get-credentials npvet-cluster \
+            --zone=us-central1-a \
+            --project=${{ secrets.GCP_PROJECT_ID_PRODUCTION }}
+
+      - name: Reiniciar o deployment do Frontend
+        run: kubectl -n npvet-prod rollout restart deployment npvet-frontend
