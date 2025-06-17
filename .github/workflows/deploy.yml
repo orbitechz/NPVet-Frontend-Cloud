@@ -96,7 +96,10 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY_STAGING }}
-
+          
+      - name: Instalar componente gke-gcloud-auth-plugin
+        run: gcloud components install gke-gcloud-auth-plugin
+        
       - name: Configurar kubectl
         run: |
           gcloud container clusters get-credentials npvet-cluster \
@@ -117,6 +120,9 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY_PRODUCTION }}
 
+      - name: Instalar componente gke-gcloud-auth-plugin
+        run: gcloud components install gke-gcloud-auth-plugin
+        
       - name: Configurar kubectl
         run: |
           gcloud container clusters get-credentials npvet-cluster \
